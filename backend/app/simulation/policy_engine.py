@@ -79,8 +79,13 @@ def _apply_operation(
     else:
         raise ValueError(f"Bilinmeyen operasyon: {operation}")
 
+    # Çalışma yasağı: can_work ve income da sıfırlanır
+    if target == "employed" and operation == "set" and not value:
+        agents.can_work[mask] = False
+        agents.income[mask] = 0.0
+
     # income değişince income_percentile'ı yeniden hesapla
-    if target == "income":
+    if target in ("income", "employed"):
         rank = np.argsort(np.argsort(agents.income))
         agents.income_percentile[:] = rank / (len(agents.income) - 1)
 

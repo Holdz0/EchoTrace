@@ -26,8 +26,9 @@ function toSnapshot(r: BackendDayResult): DaySnapshot {
     avgConsumption: r.avg_consumption,
     avgSavings: r.avg_savings,
     taxRevenue: r.tax_revenue,
-    avgPrice: 100 * (1 + r.unemployment_rate * 0.15), // approximation
-    agents: [], // particle system uses its own seeded generation
+    avgPrice: 100 * (1 + r.unemployment_rate * 0.15),
+    agents: [],
+    cityUnemployment: r.city_unemployment,
   };
 }
 
@@ -64,7 +65,7 @@ export interface UseSimulationReturn {
   setPlaying: (p: boolean) => void;
   setSpeed: (s: number) => void;
   resetScenario: (key: ScenarioKey) => void;
-  runCustomLaw: (lawText: string) => void;
+  runCustomLaw: (lawText: string, onError?: () => void, onSuccess?: () => void) => void;
 }
 
 export function useSimulation(initialScenario: ScenarioKey): UseSimulationReturn {
@@ -90,6 +91,8 @@ export function useSimulation(initialScenario: ScenarioKey): UseSimulationReturn
       ws.send(JSON.stringify(request));
     };
 
+    let completedNormally = false;
+
     ws.onmessage = (e) => {
       try {
         const msg = JSON.parse(e.data) as { type: string; days?: BackendDayResult[]; message?: string };
@@ -106,12 +109,14 @@ export function useSimulation(initialScenario: ScenarioKey): UseSimulationReturn
         }
         if (msg.type === "done") {
           setPlaying(false);
+          completedNormally = true;
         }
       } catch {}
     };
 
+    // Sadece hata/anormal kapanmada mock'a dön; normal tamamlanmada "live" kalsın
     ws.onerror = () => { ws.close(); setMode("mock"); };
-    ws.onclose = () => setMode(m => m === "live" ? "mock" : m);
+    ws.onclose = () => { if (!completedNormally) setMode(m => m === "live" ? "mock" : m); };
   }, []);
 
   // Try initial backend connection on mount
@@ -132,24 +137,37 @@ export function useSimulation(initialScenario: ScenarioKey): UseSimulationReturn
   }, [connectAndRun]);
 
   // Parse a free-form law text via the LLM endpoint, then simulate
-  const runCustomLaw = useCallback((lawText: string) => {
+  const runCustomLaw = useCallback((lawText: string, onError?: () => void, onSuccess?: () => void) => {
     fetch("http://localhost:8000/parse-and-simulate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ law_text: lawText }),
     })
       .then(r => r.json())
-      .then((resp: { results: BackendDayResult[] }) => {
-        if (!resp.results?.length) return;
+      .then((resp: { results: BackendDayResult[]; effect_log?: string[]; error?: string }) => {
+        if (resp.error) {
+          console.error("❌ Backend hatası:", resp.error);
+          onError?.();
+          return;
+        }
+        // LLM'in ürettiği efektleri konsola bas (debug)
+        if (resp.effect_log?.length) {
+          console.group("🔍 LLM Effect Log");
+          resp.effect_log.forEach(l => console.log(l));
+          console.groupEnd();
+        }
+        if (!resp.results?.length) { onError?.(); return; }
         const snaps = resp.results.map(toSnapshot);
         // Pad to 365 if shorter
         while (snaps.length < 365) snaps.push({ ...snaps[snaps.length - 1], day: snaps.length + 1 });
         setSnapshots(snaps);
         setCurrentDay(1);
         setMode("live");
+        setPlaying(true);
         setCityUnemp(resp.results[resp.results.length - 1]?.city_unemployment ?? {});
+        onSuccess?.();
       })
-      .catch(() => {}); // stay on mock if backend unreachable
+      .catch(() => onError?.());
   }, []);
 
   return {

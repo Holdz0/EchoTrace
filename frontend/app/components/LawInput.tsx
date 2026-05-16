@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 interface Props {
-  onSubmit: (lawText: string) => void;
+  onSubmit: (lawText: string, onError?: () => void, onSuccess?: () => void) => void;
   onClose: () => void;
   mode: "live" | "mock";
 }
@@ -18,12 +18,17 @@ const EXAMPLES = [
 export default function LawInput({ onSubmit, onClose, mode }: Props) {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleSubmit = () => {
-    if (!text.trim() || loading) return;
+    if (!text.trim() || loading || mode !== "live") return;
     setLoading(true);
-    onSubmit(text.trim());
-    setTimeout(() => { setLoading(false); onClose(); }, 800);
+    setError(false);
+    onSubmit(
+      text.trim(),
+      () => { setLoading(false); setError(true); },  // onError: modal açık kalır, hata gösterilir
+      () => { setLoading(false); onClose(); },        // onSuccess: modal kapanır
+    );
   };
 
   return (
@@ -49,12 +54,25 @@ export default function LawInput({ onSubmit, onClose, mode }: Props) {
             </h2>
             <p style={{ fontSize: 11, color: "#4b5563", margin: "4px 0 0" }}>
               LLM politikayı parse eder → simülasyon çalışır
-              {mode !== "live" && (
-                <span style={{ color: "#ef4444", marginLeft: 6 }}>
-                  (Backend bağlı değil — önce backend'i başlat)
-                </span>
-              )}
             </p>
+            {mode !== "live" && (
+              <div style={{
+                marginTop: 8, padding: "6px 12px", borderRadius: 6,
+                background: "#450a0a", border: "1px solid #7f1d1d",
+                color: "#fca5a5", fontSize: 11, fontWeight: 600,
+              }}>
+                ⚠ Backend bağlı değil — simülasyon çalıştırmak için önce backend'i başlat (uvicorn)
+              </div>
+            )}
+            {error && (
+              <div style={{
+                marginTop: 8, padding: "6px 12px", borderRadius: 6,
+                background: "#450a0a", border: "1px solid #7f1d1d",
+                color: "#fca5a5", fontSize: 11,
+              }}>
+                ✕ Simülasyon başarısız oldu. Backend çalışıyor mu? OpenAI API key ayarlı mı?
+              </div>
+            )}
           </div>
           <button onClick={onClose} style={{
             background: "none", border: "1px solid #1e3a5f", color: "#4b5563",
@@ -72,7 +90,7 @@ export default function LawInput({ onSubmit, onClose, mode }: Props) {
             borderRadius: 8, padding: "10px 14px", color: "#e2e8f0", fontSize: 13,
             resize: "vertical", outline: "none", fontFamily: "system-ui, sans-serif",
           }}
-          onKeyDown={e => { if (e.key === "Enter" && e.metaKey) handleSubmit(); }}
+          onKeyDown={e => { if (e.key === "Enter" && e.metaKey && mode === "live") handleSubmit(); }}
         />
 
         <div style={{ marginTop: 12, marginBottom: 16 }}>
@@ -99,17 +117,17 @@ export default function LawInput({ onSubmit, onClose, mode }: Props) {
           }}>İptal</button>
           <button
             onClick={handleSubmit}
-            disabled={!text.trim() || loading}
+            disabled={!text.trim() || loading || mode !== "live"}
             style={{
               padding: "8px 20px", borderRadius: 8, border: "none",
-              background: text.trim() && !loading ? "#2563eb" : "#0f2240",
-              color: text.trim() && !loading ? "#fff" : "#374151",
-              cursor: text.trim() && !loading ? "pointer" : "not-allowed",
+              background: text.trim() && !loading && mode === "live" ? "#2563eb" : "#0f2240",
+              color: text.trim() && !loading && mode === "live" ? "#fff" : "#374151",
+              cursor: text.trim() && !loading && mode === "live" ? "pointer" : "not-allowed",
               fontSize: 12, fontWeight: 600,
               display: "flex", alignItems: "center", gap: 6,
             }}
           >
-            {loading ? "⏳ Analiz ediliyor..." : "🚀 Simüle Et (⌘↵)"}
+            {loading ? "⏳ Analiz ediliyor..." : mode !== "live" ? "⚡ Backend Bağlı Değil" : "🚀 Simüle Et (⌘↵)"}
           </button>
         </div>
       </div>

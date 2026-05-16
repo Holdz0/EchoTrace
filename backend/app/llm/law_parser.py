@@ -72,6 +72,23 @@ YENİ PARAMETRELERLE İLGİLİ KURALLAR:
 - "Çocuklu ailelere" veya "3'ten fazla çocuğu olanlara" → filter: {"children_count": {"gte": 3}}
 - "Kredi borcu 50 bin TL üzeri olanlar" → filter: {"debt": {"gt": 50000}}
 
+DİNAMİK PARAMETRELER (dynamics bloğu — isteğe bağlı):
+Yasanın etkilediği şehirlerde iş kaybı ve yeniden istihdam hızlarını ve göç akışlarını belirt.
+{
+  "dynamics": {
+    "job_loss_rate_by_city": {"<şehir_kodu_str>": <float>},
+    "reemploy_rate_by_city":  {"<şehir_kodu_str>": <float>},
+    "migration": [{"from_city": <int>, "to_city": <int>, "daily_rate": <float>}]
+  }
+}
+- job_loss_rate_by_city: Varsayılan 0.0005/gün. Yasaklanan şehirde 0.05+ yap.
+- reemploy_rate_by_city: Varsayılan 0.003/gün. Yasak şehirde 0.0, göç alan komşu şehirlerde 0.004-0.008.
+- migration: Yasaklanan şehirdeki işsizler her gün daily_rate olasılıkla komşu şehre taşınır.
+  * İstanbul(0) yasaklanınca → Kocaeli(9), Bursa(3), Ankara(1) daily_rate ~0.001-0.003 göç alır
+  * Doğu il yasaları → Gaziantep(8), Şanlıurfa(7) arası göç
+- Sadece değişen şehirleri yaz; etkisiz şehirleri dahil etme.
+- Gelir/vergi politikalarında dynamics genellikle gereksizdir.
+
 KURALLAR:
 - Filtresiz effect tüm ajanları etkiler
 - Birden fazla effect olabilir
@@ -113,6 +130,24 @@ Giriş: "İstanbul ve Ankara'da kamu işçi alımı durduruldu"
     {"target": "employed", "filter": {"city": [0, 1], "profession": [0]}, "operation": "set", "value": false}
   ],
   "macro": {}
+}
+
+Giriş: "İstanbul'da çalışmak yasak"
+Çıkış:
+{
+  "effects": [
+    {"target": "employed", "filter": {"city": [0]}, "operation": "set", "value": false}
+  ],
+  "macro": {},
+  "dynamics": {
+    "job_loss_rate_by_city": {"0": 0.08},
+    "reemploy_rate_by_city": {"0": 0.0, "3": 0.005, "9": 0.006, "1": 0.004},
+    "migration": [
+      {"from_city": 0, "to_city": 3, "daily_rate": 0.002},
+      {"from_city": 0, "to_city": 9, "daily_rate": 0.0015},
+      {"from_city": 0, "to_city": 1, "daily_rate": 0.001}
+    ]
+  }
 }
 """
 

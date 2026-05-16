@@ -1,4 +1,78 @@
 import { PROVINCES } from "./turkeyData";
+import type { DaySnapshot } from "../types";
+
+// Province plate ID → backend city name (from cities.py)
+const PROVINCE_TO_CITY: Record<number, string> = {
+  34: "İstanbul",
+  6: "Ankara",  18: "Ankara",  40: "Ankara",  71: "Ankara",
+  35: "İzmir",  9: "İzmir",   20: "İzmir",   45: "İzmir",   48: "İzmir",  64: "İzmir",
+  16: "Bursa",  10: "Bursa",  11: "Bursa",   17: "Bursa",   54: "Bursa",  77: "Bursa",
+  7:  "Antalya", 15: "Antalya", 32: "Antalya",
+  42: "Konya",  50: "Konya",  51: "Konya",   68: "Konya",   70: "Konya",
+  1:  "Adana",  31: "Adana",  33: "Adana",   80: "Adana",
+  63: "Şanlıurfa", 21: "Şanlıurfa", 30: "Şanlıurfa", 47: "Şanlıurfa",
+  56: "Şanlıurfa", 65: "Şanlıurfa", 72: "Şanlıurfa", 73: "Şanlıurfa",
+  27: "Gaziantep", 2: "Gaziantep", 44: "Gaziantep", 46: "Gaziantep", 79: "Gaziantep",
+  41: "Kocaeli", 14: "Kocaeli", 22: "Kocaeli", 39: "Kocaeli", 59: "Kocaeli", 81: "Kocaeli",
+};
+
+// Yasadan önceki baz işsizlik oranları — cities.py'dan (TÜİK 2024)
+const CITY_BASE_UNEMPLOYMENT: Record<string, number> = {
+  "İstanbul":  0.085,
+  "Ankara":    0.070,
+  "İzmir":     0.090,
+  "Bursa":     0.080,
+  "Antalya":   0.095,
+  "Konya":     0.130,
+  "Adana":     0.145,
+  "Şanlıurfa": 0.220,
+  "Gaziantep": 0.110,
+  "Kocaeli":   0.065,
+  "Diğer":     0.105,
+};
+const NATIONAL_BASE_UNEMPLOYMENT = 0.105;
+
+export function computeProvinceStatsLive(
+  currentSnap: DaySnapshot,
+  _baselineSnap: DaySnapshot, // imza uyumu için tutuldu
+): ProvinceStats[] {
+  const currCity = currentSnap.cityUnemployment ?? {};
+
+  return PROVINCES.map(p => {
+    const pid      = parseInt(p.id);
+    const cityName = PROVINCE_TO_CITY[pid] ?? "Diğer";
+
+    // Baz: yasadan önceki bilinen şehir işsizliği (cities.py)
+    const baseUnemp = CITY_BASE_UNEMPLOYMENT[cityName] ?? NATIONAL_BASE_UNEMPLOYMENT;
+    // Eğer backend bu şehri raporlamadıysa baseline = 0 değişim (nötr)
+    const currUnemp = currCity[cityName] !== undefined
+      ? currCity[cityName]
+      : baseUnemp;
+
+    // Sadece şehre özgü işsizlik değişimi — ulusal sızmayı kaldır
+    const unempImprovement = (baseUnemp - currUnemp) / Math.max(0.01, baseUnemp);
+
+    const noise    = (seeded(pid, 3) - 0.5) * 0.02;
+    const rawScore = unempImprovement + noise;
+    const score    = Math.max(-0.5, Math.min(0.5, rawScore));
+
+    const winnerPct = Math.max(0.05, Math.min(0.9, 0.3 + score * 0.6));
+    const loserPct  = Math.max(0.05, Math.min(0.9, 0.3 - score * 0.6));
+
+    return {
+      id: p.id,
+      name: p.name,
+      score,
+      winnerPct,
+      loserPct,
+      unemployment: currUnemp,
+      consumption:  currentSnap.avgConsumption * (1 + score * 0.3),
+      inflation:    currentSnap.avgPrice / 100,
+      gini:         currentSnap.gini + (seeded(pid, 7) - 0.5) * 0.02,
+      agentCount:   Math.max(50, Math.round(p.population / 100000) * 10),
+    };
+  });
+}
 
 export interface ProvinceStats {
   id: string;

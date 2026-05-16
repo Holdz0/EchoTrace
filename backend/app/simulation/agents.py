@@ -17,6 +17,7 @@ class AgentPopulation:
     employed: np.ndarray
     price_sensitivity: np.ndarray
     city: np.ndarray              # integer → cities.CITY_BY_ID
+    can_work: np.ndarray          # False = yasak/kalıcı engel, iş bulamaz
     gender: np.ndarray            # 0: Erkek, 1: Kadın
     education_level: np.ndarray   # 0: İlkokul/Altı, 1: Ortaokul, 2: Lise, 3: Üniversite
     children_count: np.ndarray    # integer
@@ -84,6 +85,7 @@ def create_population(seed: int = SEED) -> AgentPopulation:
         employed=employed,
         price_sensitivity=price_sensitivity,
         city=city,
+        can_work=np.ones(N_AGENTS, dtype=np.bool_),
         gender=gender,
         education_level=education_level,
         children_count=children_count,
