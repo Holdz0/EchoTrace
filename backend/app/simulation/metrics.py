@@ -23,13 +23,17 @@ def avg_savings(savings: np.ndarray) -> float:
 
 
 def tax_revenue(
-    consumption: np.ndarray,
-    income: np.ndarray,
+    agents,
     vat_rate: float,
     income_tax_rate: float = 0.15,
 ) -> float:
-    vat = (consumption * vat_rate).sum()
-    income_tax = (income * income_tax_rate / 30).sum()
+    # Tüketim üzerinden herkes KDV öder
+    vat = (agents.consumption * vat_rate).sum()
+    
+    # Sadece kayıtlı (formal) çalışanlar gelir vergisi öder
+    formal_employed = (agents.employed) & (~agents.informal_employment)
+    income_tax = (agents.income[formal_employed] * income_tax_rate / 30).sum()
+    
     return float(vat + income_tax)
 
 
@@ -68,7 +72,7 @@ def compute_daily_metrics(
         "unemployment_rate": round(unemployment_rate(agents.employed), 4),
         "avg_consumption": round(avg_consumption(agents.consumption), 2),
         "avg_savings": round(avg_savings(agents.savings), 2),
-        "tax_revenue": round(tax_revenue(agents.consumption, agents.income, vat_rate), 2),
+        "tax_revenue": round(tax_revenue(agents, vat_rate), 2),
         "agent_status": winner_loser_neutral(agents.consumption, baseline_consumption),
         "city_unemployment": city_unemployment_breakdown(agents.city, agents.employed),
     }

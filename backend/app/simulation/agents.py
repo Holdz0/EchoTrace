@@ -17,6 +17,13 @@ class AgentPopulation:
     employed: np.ndarray
     price_sensitivity: np.ndarray
     city: np.ndarray              # integer → cities.CITY_BY_ID
+    gender: np.ndarray            # 0: Erkek, 1: Kadın
+    education_level: np.ndarray   # 0: İlkokul/Altı, 1: Ortaokul, 2: Lise, 3: Üniversite
+    children_count: np.ndarray    # integer
+    home_ownership: np.ndarray    # 0: Ev Sahibi, 1: Kiracı, 2: Aileyle Yaşayan
+    informal_employment: np.ndarray # boolean (Kayıt dışı istihdam)
+    economic_sector: np.ndarray   # 0: Tarım, 1: Sanayi, 2: İnşaat, 3: Hizmet
+    debt: np.ndarray              # float (TL cinsinden tüketici/kredi borcu)
 
 
 def create_population(seed: int = SEED) -> AgentPopulation:
@@ -34,6 +41,10 @@ def create_population(seed: int = SEED) -> AgentPopulation:
     # 3. Şehre özgü gelir dağılımı (ulusal dilimlere şehir çarpanı uygulanır)
     income_percentile = rng.uniform(0, 1, size=N_AGENTS)
     income = _sample_income(income_percentile, city, rng)
+    
+    # Şehir çarpanlarından sonra gerçek yüzdeliği (percentile) düzelt
+    rank = np.argsort(np.argsort(income))
+    income_percentile = rank / (N_AGENTS - 1)
 
     # 4. Meslek dağılımı
     profession_probs = [0.20, 0.35, 0.15, 0.22, 0.08]
@@ -51,6 +62,18 @@ def create_population(seed: int = SEED) -> AgentPopulation:
 
     price_sensitivity = 0.3 + 0.4 * (1 - income_percentile)
 
+    # 7. Yeni Sosyo-Ekonomik Parametreler
+    gender = rng.integers(0, 2, size=N_AGENTS, dtype=np.int8)
+    education_level = rng.choice(4, size=N_AGENTS, p=[0.30, 0.25, 0.25, 0.20]).astype(np.int8)
+    
+    # Kullanıcının talebine göre: Doğu illerinde çocuk sayısı yüksek, gelir ve eğitim arttıkça düşer
+    children_count = _sample_children(city, education_level, income_percentile, rng)
+    
+    home_ownership = _sample_home_ownership(income_percentile, age, rng)
+    economic_sector = _sample_economic_sector(city, profession, rng)
+    informal_employment = _sample_informal_employment(employed, education_level, economic_sector, rng)
+    debt = _sample_debt(income, income_percentile, rng)
+
     return AgentPopulation(
         age=age,
         income=income,
@@ -61,6 +84,13 @@ def create_population(seed: int = SEED) -> AgentPopulation:
         employed=employed,
         price_sensitivity=price_sensitivity,
         city=city,
+        gender=gender,
+        education_level=education_level,
+        children_count=children_count,
+        home_ownership=home_ownership,
+        informal_employment=informal_employment,
+        economic_sector=economic_sector,
+        debt=debt,
     )
 
 
@@ -121,3 +151,102 @@ def _sample_employment(
     employed[extra_unemployed] = False
 
     return employed
+
+
+def _sample_children(city: np.ndarray, edu: np.ndarray, inc_perc: np.ndarray, rng: np.random.Generator) -> np.ndarray:
+    """Doğu illerinde baz çocuk oranı yüksektir. Ancak eğitim ve gelir arttıkça bu oran düşer."""
+    base_lambda = np.ones(len(city)) * 1.5
+    
+    # Şanlıurfa (7), Gaziantep (8), Adana (6), Konya (5) gibi yerlerde temel çocuk sayısını artırıyoruz.
+    base_lambda[city == 7] = 3.8
+    base_lambda[city == 8] = 3.0
+    base_lambda[city == 6] = 2.4
+    base_lambda[city == 5] = 2.3
+    
+    # İzmir (2), İstanbul (0) gibi yerlerde düşürüyoruz.
+    base_lambda[city == 2] = 1.1
+    base_lambda[city == 0] = 1.2
+
+    # Eğitim arttıkça çocuk oranı ciddi şekilde düşer (0=İlkokul -> 0 etki, 3=Üniversite -> -0.9 etki)
+    edu_effect = edu * 0.30
+    
+    # Gelir seviyesi arttıkça çocuk oranı düşer (inc_perc=1.0 -> -0.6 etki)
+    inc_effect = inc_perc * 0.60
+    
+    # Lambda hiçbir zaman 0.1'in altına düşmesin
+    final_lambda = np.maximum(0.1, base_lambda - edu_effect - inc_effect)
+    
+    return rng.poisson(final_lambda).astype(np.int8)
+
+
+def _sample_home_ownership(inc_perc: np.ndarray, age: np.ndarray, rng: np.random.Generator) -> np.ndarray:
+    # 0: Ev Sahibi, 1: Kiracı, 2: Aileyle Yaşayan
+    ownership = np.ones(len(inc_perc), dtype=np.int8)  # Herkes varsayılan kiracı
+    
+    # Gençler (25 yaş altı) yüksek ihtimalle aileyle yaşar
+    youth_mask = age <= 25
+    ownership[youth_mask & (rng.random(len(inc_perc)) < 0.60)] = 2
+    
+    # Yaş ve gelir arttıkça ev sahibi olma ihtimali artar
+    # 35 yaş üstü ve gelir yüzdeliği > %50 olanlarda ihtimal belirgin şekilde yüksektir
+    owner_prob = inc_perc * 0.5 + (age > 35) * 0.3
+    is_owner = (rng.random(len(inc_perc)) < owner_prob) & (ownership != 2)
+    ownership[is_owner] = 0
+    
+    return ownership
+
+
+def _sample_economic_sector(city: np.ndarray, prof: np.ndarray, rng: np.random.Generator) -> np.ndarray:
+    # 0: Tarım, 1: Sanayi, 2: İnşaat, 3: Hizmet
+    sector = np.full(len(city), 3, dtype=np.int8)  # Varsayılan hizmet sektörü
+    
+    # Kocaeli (9) ve Bursa (3) sanayi ağırlıklıdır
+    is_industry_city = (city == 9) | (city == 3)
+    sector[is_industry_city & (rng.random(len(city)) < 0.45)] = 1
+    
+    # Konya (5), Şanlıurfa (7) tarım ağırlıklıdır
+    is_agri_city = (city == 5) | (city == 7)
+    sector[is_agri_city & (rng.random(len(city)) < 0.35)] = 0
+    
+    # Memurlar (prof==0) genelde kamudadır, hizmet sektörü sayılır
+    sector[prof == 0] = 3
+    
+    # Kalan kesime ülke geneli oranlarında sanayi ve inşaat dağıtılır
+    rand_vals = rng.random(len(city))
+    can_change = (sector == 3) & (prof != 0)
+    sector[can_change & (rand_vals < 0.18)] = 1        # %18 Sanayi
+    sector[can_change & (rand_vals >= 0.18) & (rand_vals < 0.25)] = 2  # %7 İnşaat
+    
+    return sector
+
+
+def _sample_informal_employment(employed: np.ndarray, edu: np.ndarray, sector: np.ndarray, rng: np.random.Generator) -> np.ndarray:
+    informal = np.zeros(len(employed), dtype=np.bool_)
+    
+    prob = np.zeros(len(employed))
+    # Sektörel etki: Tarım ve İnşaatta kayıt dışılık çok yüksektir
+    prob[sector == 0] += 0.50
+    prob[sector == 2] += 0.30
+    
+    # Eğitim etkisi: İlkokul mezunlarında yüksek, üniversitelilerde düşüktür
+    prob[edu == 0] += 0.25
+    prob[edu == 3] -= 0.20
+    
+    # Sadece çalışanlar kayıt dışı olabilir
+    is_informal = employed & (rng.random(len(employed)) < prob)
+    informal[is_informal] = True
+    
+    return informal
+
+
+def _sample_debt(income: np.ndarray, inc_perc: np.ndarray, rng: np.random.Generator) -> np.ndarray:
+    # Düşük gelir grubunda borçluluk oranı gelire kıyasla daha fazladır (2-3 katı).
+    # Yüksek gelirlilerde bu çarpan 0.5'e kadar düşer.
+    debt_mult = 3.0 - (inc_perc * 2.5)
+    debt = income * debt_mult * rng.lognormal(mean=0, sigma=0.5, size=len(income))
+    
+    # Toplumun %20'sinin hiç tüketici veya kredi kartı borcu yoktur
+    no_debt = rng.random(len(income)) < 0.20
+    debt[no_debt] = 0.0
+    
+    return debt
