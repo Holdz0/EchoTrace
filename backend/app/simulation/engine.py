@@ -163,4 +163,37 @@ def _step(agents: AgentPopulation, price_level: float, vat_rate: float, rng: np.
             # Coğrafi yasak: ajanlar yasak bölgeden çıkınca yeniden çalışabilir
             agents.can_work[migrate] = True
 
+    _apply_dynamic_migration(agents, rng, broke_mask)
+
+def _apply_dynamic_migration(agents: AgentPopulation, rng: np.random.Generator, broke_mask: np.ndarray) -> None:
+    N = len(agents.city)
+    mig_chance = rng.random(N)
+    can_migrate = broke_mask & (mig_chance < 0.002)  # günde %0.2 ihtimal
+    
+    agri_mask = can_migrate & (agents.economic_sector == 0)
+    if agri_mask.any():
+        agents.city[agri_mask] = rng.choice([5, 7], size=agri_mask.sum())
+    
+    ind_srv_mask = can_migrate & ((agents.economic_sector == 1) | (agents.economic_sector == 3))
+    if ind_srv_mask.any():
+        agents.city[ind_srv_mask] = rng.choice([0, 9, 3], size=ind_srv_mask.sum())
+
+    poor_renters = (agents.city == 0) | (agents.city == 2)
+    poor_renters &= (agents.home_ownership == 1) & (agents.income_percentile < 0.2)
+    poor_renters &= (mig_chance < 0.001)  # günde %0.1 ihtimal
+    if poor_renters.any():
+        agents.city[poor_renters] = 10
+
+    young_edu_agri = (agents.age < 30) & (agents.education_level >= 2) & (agents.economic_sector == 0)
+    change_sector = young_edu_agri & (rng.random(N) < 0.005)
+    if change_sector.any():
+        agents.economic_sector[change_sector] = rng.choice([1, 3], size=change_sector.sum())
+        agents.employed[change_sector] = False
+        agents.income[change_sector] = 0.0
+
+    low_income_formal = agents.employed & (~agents.informal_employment) & (agents.income_percentile < 0.3)
+    go_informal = low_income_formal & (rng.random(N) < 0.0005)
+    if go_informal.any():
+        agents.informal_employment[go_informal] = True
+
 

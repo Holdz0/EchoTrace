@@ -1,0 +1,33 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SİMÜLASYON DİNAMİKLERİ VE MANTIK ÇERÇEVESİ (SIMULATION LOGIC FRAMEWORK)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+LLM, kullanıcıdan gelen politikaları analiz ederken kendi geniş coğrafya, sosyoloji ve ekonomi bilgisini kullanarak aşağıdaki **temel mantık prensiplerini** yeni ve beklenmedik durumlara uyarlamalıdır. Sana verilen örnekler sadece bu mantığı kavramana yardımcı olmak içindir; sen bu felsefeyi genişleterek her türlü tarım, sanayi veya kriz senaryosunu doğru şehirlere ve sektörlere atamalısın.
+
+1. GÖÇ VE KRİZ FELSEFESİ (İnsanlar nereye kaçar?)
+- Mesafe vs. Refah Dengesi: İnsanlar kriz anında öncelikle *yakınlarındaki büyük ekonomik merkezlere* gitme eğilimindedir. (Örn: Trakya'da kriz olursa İstanbul'a, İç Anadolu'da kriz olursa Ankara'ya).
+- Umutsuzluk ve Uzak Göç: Ancak krizin olduğu yer halihazırda gelişmemiş veya iş imkanı çok kısıtlı bir bölgeyse (Örn: Doğu veya Güneydoğu Anadolu), ajanlar yakınlardaki zayıf iller yerine doğrudan Türkiye'nin en büyük sanayi/hizmet ve refah merkezlerine (İstanbul, Kocaeli, Bursa, İzmir, Antalya) göç etmeyi tercih eder. Senaryoyu yorumlarken krizin yaşandığı coğrafyanın ekonomik çaresizliğine göre hedef şehri kendi coğrafya bilginle (uzak metropol mü, yakın metropol mü) belirle.
+
+2. COĞRAFİ VE İKLİMSEL UYUM (Sektör-Şehir Eşleşmesi)
+Kendi coğrafya bilgini kullanarak; tarım, hayvancılık, madencilik veya turizm gibi sektörel teşvikler/yasalar geldiğinde, o faaliyetin Türkiye'de en çok hangi coğrafyada/iklimde yapıldığını bul ve ajanları o bölgeyi en iyi temsil eden şehirlere yönlendir.
+Örnek Mantık Çerçevesi:
+- Buğday, Arpa, Şeker Pancarı: Suyu az, geniş düzlükler gerektirir → İç Anadolu (Konya=5, Ankara=1).
+- Narenciye, Muz, Sera: Ilıman kışlar ve sıcak yazlar gerektirir → Akdeniz (Antalya=4, Adana=6).
+- Fındık, Çay: Bol ve sürekli yağış gerektirir → Karadeniz (Diğer=10).
+- Zeytin, Üzüm: Akdeniz iklimi gerektirir → Ege (İzmir=2).
+- Büyükbaş/Küçükbaş Hayvancılık: Geniş meralar ve yaylalar gerektirir → Doğu/Güneydoğu (Şanlıurfa=7, Diğer=10).
+- GENELLEME (ÖNEMLİ): Sana hiç öğretilmemiş bir kural/ürün gelse bile (Örn: "Gül yetiştiriciliği", "Ayçiçeği", "Balıkçılık"), kendi coğrafya bilginle (Gül -> Isparta/Akdeniz, Ayçiçeği -> Trakya/Marmara, Balıkçılık -> Karadeniz) bu ürünü iklimine en uygun şehre veya "Diğer=10" bölgesine yerleştir. Sektörü mutlaka Tarım (0) yap.
+
+3. SANAYİ VE HİZMET MANTIĞI
+- Sanayi ve Üretim: Fabrika, ağır sanayi, otomotiv, teknoloji gibi yatırımlar, lojistik ağlarının güçlü olduğu, limanlara yakın ve gelişmiş Marmara bölgesi illerini (Kocaeli=9, Bursa=3, İstanbul=0) merkeze alır. Sektör Sanayi (1) olmalıdır.
+- Hizmet ve Turizm: Yaz turizmi güney/ege sahillerine (Antalya=4, İzmir=2), kamu yönetimi ve memuriyet ise her zaman başkente (Ankara=1) yönlendirilir.
+
+4. DEMOGRAFİK EĞİLİMLER VE KUŞAK ÇATIŞMASI
+- Pahalılıktan Kaçış (Tersine Göç): Metropollerde (İstanbul=0, İzmir=2) barınma maliyetleri (kira vb.) enflasyon yüzünden aşırı artarsa, mülksüz (kiracı) ve dar gelirli kesimler hayatlarını sürdürebilmek için refah seviyesi daha düşük ama yaşaması nispeten ucuz olan taşra illerine (Diğer=10) göç etme eğilimindedir.
+- Gençlerin Modernleşme Eğilimi: Kırsal veya tarım ağırlıklı bölgelerdeki eğitimli gençler (Lise/Üniversite mezunu), tarımı bırakıp hizmet/sanayi sektörlerine geçmeye heveslidir. Promtta bir teknoloji/sanayi yatırımı varsa, bu profildeki ajanların tarımı bırakıp (özellikle Konya=5 veya Şanlıurfa=7 gibi yerlerden) batı illerine göç etmesini kurgulayabilirsin.
+
+ÖZETLE:
+Kullanıcıdan gelen senaryoları yorumlarken ezber yapma, yukarıdaki "felsefeyi" benimse. Kendi coğrafi ve sosyolojik mantığını kullanarak en doğru şehir kodunu ve sektörü serbestçe seç.
+
+DİKKAT (İSTİHDAM DURUMU):
+Bir yasayla ajanların şehrini (göç) veya sektörünü değiştirdiğinde, eğer o ajanlara aynı yasa kapsamında yeni bir iş/maaş VERMİYORSAN, eski işlerini kaybedecekleri için mutlaka `{"target": "employed", "operation": "set", "value": false}` ve `{"target": "income", "operation": "set", "value": 0}` etkilerini de listeye eklemelisin. Eğer yasa "Göç ettiler ve sanayide 40000 TL maaşla işe başladılar" diyorsa employed=true ve income=40000 olarak ayarlayabilirsin.
