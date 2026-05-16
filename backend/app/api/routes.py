@@ -126,6 +126,7 @@ async def parse_and_simulate(body: LawInput):
             "total_days":  len(output["results"]),
             "effect_log":  output.get("effect_log", []),
             "results":     output["results"],
+            "parsed_law":  {"effects": effects, "macro": macro, "dynamics": dynamics},
         }
 
     except Exception as e:

@@ -6,6 +6,14 @@ import type { DaySnapshot } from "../types";
 
 type Mode = "live" | "mock";
 
+export interface LLMReport {
+  lawText: string;
+  effects: object[];
+  macro: Record<string, unknown>;
+  dynamics: Record<string, unknown> | null;
+  effectLog: string[];
+}
+
 // Backend DayResult (snake_case) → frontend DaySnapshot (camelCase)
 interface BackendDayResult {
   day: number;
@@ -61,6 +69,7 @@ export interface UseSimulationReturn {
   speed: number;
   mode: Mode;
   cityUnemployment: Record<string, number>;
+  llmReport: LLMReport | null;
   setCurrentDay: (d: number | ((prev: number) => number)) => void;
   setPlaying: (p: boolean) => void;
   setSpeed: (s: number) => void;
@@ -75,6 +84,7 @@ export function useSimulation(initialScenario: ScenarioKey): UseSimulationReturn
   const [speed, setSpeed]                   = useState(1);
   const [mode, setMode]                     = useState<Mode>("mock");
   const [cityUnemployment, setCityUnemp]    = useState<Record<string, number>>({});
+  const [llmReport, setLlmReport]           = useState<LLMReport | null>(null);
   const scenarioRef = useRef<ScenarioKey>(initialScenario);
   const wsRef       = useRef<WebSocket | null>(null);
 
@@ -144,21 +154,30 @@ export function useSimulation(initialScenario: ScenarioKey): UseSimulationReturn
       body: JSON.stringify({ law_text: lawText }),
     })
       .then(r => r.json())
-      .then((resp: { results: BackendDayResult[]; effect_log?: string[]; error?: string }) => {
+      .then((resp: {
+        results: BackendDayResult[];
+        effect_log?: string[];
+        error?: string;
+        parsed_law?: { effects: object[]; macro: Record<string, unknown>; dynamics: Record<string, unknown> | null };
+      }) => {
         if (resp.error) {
           console.error("❌ Backend hatası:", resp.error);
           onError?.();
           return;
         }
-        // LLM'in ürettiği efektleri konsola bas (debug)
-        if (resp.effect_log?.length) {
-          console.group("🔍 LLM Effect Log");
-          resp.effect_log.forEach(l => console.log(l));
-          console.groupEnd();
-        }
         if (!resp.results?.length) { onError?.(); return; }
+
+        if (resp.parsed_law) {
+          setLlmReport({
+            lawText,
+            effects: resp.parsed_law.effects ?? [],
+            macro: resp.parsed_law.macro ?? {},
+            dynamics: resp.parsed_law.dynamics ?? null,
+            effectLog: resp.effect_log ?? [],
+          });
+        }
+
         const snaps = resp.results.map(toSnapshot);
-        // Pad to 365 if shorter
         while (snaps.length < 365) snaps.push({ ...snaps[snaps.length - 1], day: snaps.length + 1 });
         setSnapshots(snaps);
         setCurrentDay(1);
@@ -171,7 +190,7 @@ export function useSimulation(initialScenario: ScenarioKey): UseSimulationReturn
   }, []);
 
   return {
-    snapshots, currentDay, playing, speed, mode, cityUnemployment,
+    snapshots, currentDay, playing, speed, mode, cityUnemployment, llmReport,
     setCurrentDay, setPlaying, setSpeed, resetScenario, runCustomLaw,
   };
 }
