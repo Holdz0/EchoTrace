@@ -13,6 +13,7 @@ import { openReportWindow } from "../lib/reportGenerator";
 import RadarPing from "./RadarPing";
 import AlertToast from "./AlertToast";
 import LawInput from "./LawInput";
+import LLMReportModal from "./LLMReportModal";
 
 const TurkeyMap  = dynamic(() => import("./TurkeyMap"),  { ssr: false });
 const SplitMap   = dynamic(() => import("./SplitMap"),   { ssr: false });
@@ -40,9 +41,11 @@ export default function Dashboard() {
   const [cinematic, setCinematic]       = useState<{ agentIdx: number } | null>(null);
   const [showLawInput, setShowLawInput] = useState(false);
 
-  const { snapshots, currentDay, playing, speed, mode, cityUnemployment,
+  const { snapshots, currentDay, playing, speed, mode, cityUnemployment, llmReport,
           setCurrentDay, setPlaying, setSpeed, resetScenario, runCustomLaw } =
     useSimulation(scenario);
+
+  const [showLLMReport, setShowLLMReport] = useState(false);
 
   const params = SCENARIO_PARAMS[scenario];
 
@@ -215,7 +218,21 @@ export default function Dashboard() {
             }}
           >⚡ Yasa Gir</button>
 
-          <style>{`@keyframes lawGlow{0%,100%{box-shadow:0 0 8px #7c3aed44}50%{box-shadow:0 0 18px #a78bfaaa}} @keyframes reportGlow{0%,100%{box-shadow:0 0 8px #2563eb44}50%{box-shadow:0 0 18px #3b82f6aa}}`}</style>
+          <style>{`@keyframes lawGlow{0%,100%{box-shadow:0 0 8px #7c3aed44}50%{box-shadow:0 0 18px #a78bfaaa}} @keyframes reportGlow{0%,100%{box-shadow:0 0 8px #2563eb44}50%{box-shadow:0 0 18px #3b82f6aa}} @keyframes aiGlow{0%,100%{box-shadow:0 0 8px #7c3aed33}50%{box-shadow:0 0 16px #a78bfa88}}`}</style>
+
+          {/* LLM decision report button — only visible after a custom law run */}
+          {llmReport && (
+            <button
+              onClick={() => setShowLLMReport(true)}
+              style={{
+                padding: "5px 12px", borderRadius: 6, fontSize: 11, fontWeight: 600,
+                cursor: "pointer", border: "1px solid #7c3aed66",
+                background: "linear-gradient(135deg,#1a0a2e,#2d1b5e)",
+                color: "#c4b5fd",
+                animation: "aiGlow 2.5s ease-in-out infinite",
+              }}
+            >🧠 YZ Raporu</button>
+          )}
 
           {/* Report generator button */}
           <button
@@ -353,6 +370,10 @@ export default function Dashboard() {
           onSubmit={(text, onError, onSuccess) => runCustomLaw(text, onError, onSuccess)}
           onClose={() => setShowLawInput(false)}
         />
+      )}
+
+      {showLLMReport && llmReport && (
+        <LLMReportModal report={llmReport} onClose={() => setShowLLMReport(false)} />
       )}
 
       {/* ══════════════ CITY UNEMPLOYMENT (backend live data) ══════════════ */}
