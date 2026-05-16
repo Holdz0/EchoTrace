@@ -45,6 +45,7 @@ desktop.ini
 *.swp
 *.swo
 *~
+.claude/
 
 # ── Logs ──────────────────────────────────────────────────────
 logs/
@@ -62,5 +63,3 @@ coverage/
 *.tsbuildinfo
 .vercel
 .turbo
-
-.claude/
