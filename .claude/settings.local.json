@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m venv venv)",
+      "Bash(py --version)",
+      "PowerShell(& \"C:\\\\Users\\\\tahae\\\\AppData\\\\Local\\\\Microsoft\\\\WindowsApps\\\\python.exe\" --version)",
+      "PowerShell($body = '{\"min_wage_increase\": 0.5, \"duration_days\": 30}'; $result = Invoke-RestMethod -Uri \"http://localhost:8000/simulate\" -Method Post -ContentType \"application/json\" -Body $body; Write-Output \"Toplam gun: $\\($result.total_days\\)\"; Write-Output \"--- Gun 1 ---\"; $result.results[0] | ConvertTo-Json; Write-Output \"--- Gun 30 ---\"; $result.results[-1] | ConvertTo-Json)",
+      "Bash(.venvScriptspython.exe -c ' *)",
+      "Bash(git fetch *)",
+      "Bash(git checkout *)",
+      "Bash(git pull *)",
+      "Bash(git stash *)",
+      "Bash(git merge *)",
+      "Bash(python -c \"from app.simulation.engine import run_simulation; from app.simulation.agents import create_population; print\\('OK'\\)\")",
+      "Bash(python -c \"import sys; sys.path.insert\\(0, '.'\\); from app.simulation.agents import AgentPopulation; print\\([f.name for f in AgentPopulation.__dataclass_fields__.values\\(\\)]\\)\")",
+      "Bash(python3 -c \"from app.simulation.engine import run_simulation; print\\('OK'\\)\")"
+    ]
+  }
+}

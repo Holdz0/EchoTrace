@@ -79,31 +79,58 @@ async def parse_law_endpoint(body: LawInput):
     return result
 
 
-@router.post("/parse-and-simulate", response_model=SimulationResponse)
+@router.post("/parse-and-simulate")
 async def parse_and_simulate(body: LawInput):
     """Yasa metnini al → LLM ile parse et → simüle et. Tek adımda."""
-    loop = asyncio.get_event_loop()
+    import traceback as _tb
 
-    parsed = await loop.run_in_executor(None, lambda: parse_law(body.law_text))
+    try:
+        loop = asyncio.get_running_loop()
 
-    effects = parsed.get("effects", [])
-    macro = parsed.get("macro", {})
+        # 1. LLM parse
+        try:
+            parsed = await loop.run_in_executor(None, lambda: parse_law(body.law_text))
+        except Exception as e:
+            _tb.print_exc()
+            return {"error": f"LLM hatası: {type(e).__name__}: {e}", "results": []}
 
-    output = await loop.run_in_executor(
-        None,
-        lambda: run_simulation(
-            effects=effects,
-            inflation_shock=macro.get("inflation_shock", 0.0),
-            vat_food_rate=macro.get("vat_food_rate", None),
-            duration_days=365,
-        ),
-    )
+        if not isinstance(parsed, dict):
+            return {"error": f"LLM beklenmedik çıktı: {type(parsed)}", "results": []}
 
-    return SimulationResponse(
-        total_days=len(output["results"]),
-        effect_log=output["effect_log"],
-        results=output["results"],
-    )
+        effects  = parsed.get("effects", [])
+        macro    = parsed.get("macro", {}) or {}
+        dynamics = parsed.get("dynamics") or None
+
+        print("\n── LLM PARSE ──")
+        print(json.dumps(parsed, ensure_ascii=False, indent=2))
+        print("───────────────\n")
+
+        # 2. Simülasyon
+        try:
+            output = await loop.run_in_executor(
+                None,
+                lambda: run_simulation(
+                    effects=effects,
+                    inflation_shock=float(macro.get("inflation_shock", 0.0)),
+                    vat_food_rate=macro.get("vat_food_rate") or None,
+                    duration_days=365,
+                    dynamics=dynamics,
+                ),
+            )
+        except Exception as e:
+            _tb.print_exc()
+            return {"error": f"Simülasyon hatası: {type(e).__name__}: {e}", "results": []}
+
+        # 3. Düz dict döndür — Pydantic serileştirme sorununu atla
+        return {
+            "total_days":  len(output["results"]),
+            "effect_log":  output.get("effect_log", []),
+            "results":     output["results"],
+        }
+
+    except Exception as e:
+        _tb.print_exc()
+        return {"error": f"Beklenmedik hata: {type(e).__name__}: {e}", "results": []}
 
 
 @router.get("/health")

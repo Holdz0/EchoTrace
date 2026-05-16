@@ -7,7 +7,7 @@ import CityDashboard from "./CityDashboard";
 import CinematicTimeline from "./CinematicTimeline";
 import { useSimulation } from "../lib/useSimulation";
 import { type ScenarioKey } from "../lib/mockData";
-import { computeProvinceStats } from "../lib/provinceSimulation";
+import { computeProvinceStats, computeProvinceStatsLive } from "../lib/provinceSimulation";
 import { getActiveAlerts, latLonToMapPct } from "../lib/alertSystem";
 import { openReportWindow } from "../lib/reportGenerator";
 import RadarPing from "./RadarPing";
@@ -46,20 +46,50 @@ export default function Dashboard() {
 
   const params = SCENARIO_PARAMS[scenario];
 
-  const provinceStats = useMemo(() => computeProvinceStats(currentDay, params), [currentDay, params]);
+  const provinceStats = useMemo(() => {
+    const current  = snapshots[Math.min(currentDay - 1, snapshots.length - 1)];
+    const baseline = snapshots[0];
+    if (mode === "live" && current?.cityUnemployment && baseline?.cityUnemployment) {
+      return computeProvinceStatsLive(current, baseline);
+    }
+    return computeProvinceStats(currentDay, params);
+  }, [mode, currentDay, params, snapshots]);
+
   const activeAlerts  = useMemo(() => getActiveAlerts(currentDay, scenario), [currentDay, scenario]);
-  const beforeStats   = useMemo(() => computeProvinceStats(1,   params), [params]);
-  const afterStats    = useMemo(() => computeProvinceStats(365, params), [params]);
+
+  const beforeStats = useMemo(() => {
+    const baseline = snapshots[0];
+    if (mode === "live" && baseline?.cityUnemployment) {
+      return computeProvinceStatsLive(baseline, baseline);
+    }
+    return computeProvinceStats(1, params);
+  }, [mode, params, snapshots]);
+
+  const afterStats = useMemo(() => {
+    const baseline = snapshots[0];
+    const last     = snapshots[snapshots.length - 1];
+    if (mode === "live" && last?.cityUnemployment && baseline?.cityUnemployment) {
+      return computeProvinceStatsLive(last, baseline);
+    }
+    return computeProvinceStats(365, params);
+  }, [mode, params, snapshots]);
 
   const provinceHistory = useMemo(() => {
     if (!selectedProvince) return [];
     const days: number[] = [];
     for (let d = 1; d <= currentDay; d += 7) days.push(d);
     if (days[days.length - 1] !== currentDay) days.push(currentDay);
+    const baseline = snapshots[0];
     return days
-      .map(d => computeProvinceStats(d, params).find(s => s.id === selectedProvince.id)!)
+      .map(d => {
+        const snap = snapshots[Math.min(d - 1, snapshots.length - 1)];
+        const stats = (mode === "live" && snap?.cityUnemployment && baseline?.cityUnemployment)
+          ? computeProvinceStatsLive(snap, baseline)
+          : computeProvinceStats(d, params);
+        return stats.find(s => s.id === selectedProvince.id)!;
+      })
       .filter(Boolean);
-  }, [selectedProvince, currentDay, params]);
+  }, [mode, selectedProvince, currentDay, params, snapshots]);
 
   const selectedStats = selectedProvince
     ? provinceStats.find(s => s.id === selectedProvince.id) ?? null
@@ -200,15 +230,6 @@ export default function Dashboard() {
             }}
           >📄 Rapor Oluştur</button>
 
-          <div style={{ width: 1, height: 24, background: "#1e3a5f" }} />
-          {(Object.keys(SCENARIO_LABELS) as ScenarioKey[]).map(key => (
-            <button key={key} onClick={() => handleScenarioChange(key)} style={{
-              padding: "5px 12px", borderRadius: 6, fontSize: 11, fontWeight: 500,
-              cursor: "pointer", border: "none",
-              background: scenario === key ? "#2563eb" : "#111827",
-              color: scenario === key ? "#fff" : "#9ca3af",
-            }}>{SCENARIO_LABELS[key]}</button>
-          ))}
         </div>
       </header>
 
@@ -329,7 +350,7 @@ export default function Dashboard() {
       {showLawInput && (
         <LawInput
           mode={mode}
-          onSubmit={(text) => { runCustomLaw(text); }}
+          onSubmit={(text, onError, onSuccess) => runCustomLaw(text, onError, onSuccess)}
           onClose={() => setShowLawInput(false)}
         />
       )}

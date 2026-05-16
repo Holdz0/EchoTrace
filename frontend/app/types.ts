@@ -19,4 +19,5 @@ export interface DaySnapshot {
   avgSavings: number;
   taxRevenue: number;
   agents: AgentState[];
+  cityUnemployment?: Record<string, number>;
 }
