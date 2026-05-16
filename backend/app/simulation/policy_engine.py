@@ -84,8 +84,12 @@ def _apply_operation(
         agents.can_work[mask] = False
         agents.income[mask] = 0.0
 
+    # Not: Şehir veya sektör değişiminde otomatik iş kaybı kodları kaldırıldı.
+    # Çünkü LLM aynı yasada hem şehri değiştirip hem de yeni iş/maaş verebilir.
+    # Otomatik iş kaybı, LLM'in verdiği maaşı (eğer effect listesinde önce gelirse) sıfırlıyordu.
+
     # income değişince income_percentile'ı yeniden hesapla
-    if target in ("income", "employed"):
+    if target in ("income", "employed", "city", "economic_sector"):
         rank = np.argsort(np.argsort(agents.income))
         agents.income_percentile[:] = rank / (len(agents.income) - 1)
 

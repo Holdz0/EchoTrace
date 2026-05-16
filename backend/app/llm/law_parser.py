@@ -1,5 +1,6 @@
 import os
 import json
+from pathlib import Path
 from openai import OpenAI
 from dotenv import load_dotenv
 
@@ -191,11 +192,20 @@ Giriş: "Emeklilere %30 zam yapıldı, gıda KDV'si %5'e indirildi"
 """
 
 
+def _load_simulation_rules() -> str:
+    rules_path = Path(__file__).parent / "simulation_rules.txt"
+    if rules_path.exists():
+        with open(rules_path, "r", encoding="utf-8") as f:
+            return f"\n\n--- DİNAMİK SİMÜLASYON KURALLARI ---\n{f.read()}\n--------------------------------------\n"
+    return ""
+
+FULL_SYSTEM_PROMPT = SYSTEM_PROMPT + _load_simulation_rules()
+
 def parse_law(law_text: str) -> dict:
     response = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
-            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "system", "content": FULL_SYSTEM_PROMPT},
             {"role": "user", "content": law_text},
         ],
         temperature=0.1,
