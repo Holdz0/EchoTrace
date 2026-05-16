@@ -87,15 +87,22 @@ def _apply_operation(
 
 def _get_field(agents: AgentPopulation, field: str) -> np.ndarray:
     field_map = {
-        "age":               agents.age,
-        "income":            agents.income,
-        "income_percentile": agents.income_percentile,
-        "profession":        agents.profession,
-        "savings":           agents.savings,
-        "consumption":       agents.consumption,
-        "employed":          agents.employed,
-        "price_sensitivity": agents.price_sensitivity,
-        "city":              agents.city,
+        "age":                 agents.age,
+        "income":              agents.income,
+        "income_percentile":   agents.income_percentile,
+        "profession":          agents.profession,
+        "savings":             agents.savings,
+        "consumption":         agents.consumption,
+        "employed":            agents.employed,
+        "price_sensitivity":   agents.price_sensitivity,
+        "city":                agents.city,
+        "gender":              agents.gender,
+        "education_level":     agents.education_level,
+        "children_count":      agents.children_count,
+        "home_ownership":      agents.home_ownership,
+        "informal_employment": agents.informal_employment,
+        "economic_sector":     agents.economic_sector,
+        "debt":                agents.debt,
     }
     if field not in field_map:
         raise ValueError(f"Bilinmeyen alan: {field}. Geçerli alanlar: {list(field_map.keys())}")

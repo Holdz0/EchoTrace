@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field
 
 
 class PolicyEffect(BaseModel):
-    target: str = Field(description="Değiştirilecek ajan alanı: income, employed, savings, profession, price_sensitivity")
+    target: str = Field(description="Değiştirilecek ajan alanı: income, employed, savings, profession, price_sensitivity, debt, children_count, vs.")
     filter: dict[str, Any] = Field(default={}, description="Hangi ajanlar etkilensin: {age: {gt: 30}}")
     operation: str = Field(description="set | multiply | add | subtract | min | max")
     value: Any = Field(description="Operasyonun değeri")
