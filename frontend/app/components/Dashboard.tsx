@@ -307,6 +307,7 @@ export default function Dashboard() {
               history={provinceHistory}
               onClose={() => setSelectedProvince(null)}
               onAgentCinematic={(idx) => setCinematic({ agentIdx: idx })}
+              llmReport={llmReport}
             />
           </div>
         )}

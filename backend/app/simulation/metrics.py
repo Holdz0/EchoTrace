@@ -42,7 +42,8 @@ def winner_loser_neutral(
     baseline_consumption: np.ndarray,
     threshold: float = 0.02,
 ) -> dict:
-    delta = (consumption - baseline_consumption) / (baseline_consumption + 1e-9)
+    # Başlangıçta işsiz olan ajanların baseline_consumption=0 olur; 1 TL taban koy.
+    delta = (consumption - baseline_consumption) / np.maximum(baseline_consumption, 1.0)
     winners = int((delta > threshold).sum())
     losers = int((delta < -threshold).sum())
     neutral = int(len(delta) - winners - losers)

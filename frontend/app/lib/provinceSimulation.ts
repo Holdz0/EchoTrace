@@ -2,7 +2,7 @@ import { PROVINCES } from "./turkeyData";
 import type { DaySnapshot } from "../types";
 
 // Yasadan önceki baz işsizlik oranları — provinces_calibration.json ile senkronize (TÜİK 2024)
-const PROVINCE_BASE_UNEMPLOYMENT: Record<string, number> = {
+export const PROVINCE_BASE_UNEMPLOYMENT: Record<string, number> = {
   "Adana": 0.130, "Adıyaman": 0.155, "Afyonkarahisar": 0.102, "Ağrı": 0.200,
   "Amasya": 0.112, "Ankara": 0.072, "Antalya": 0.098, "Artvin": 0.098,
   "Aydın": 0.098, "Balıkesir": 0.092, "Bilecik": 0.082, "Bingöl": 0.168,

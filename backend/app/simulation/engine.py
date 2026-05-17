@@ -14,6 +14,23 @@ _PROVINCE_REEMPLOY = np.array([
     for i in range(PROVINCE_COUNT)
 ])
 
+# Şehre özgü denge işsizlik oranlarına göre kalibre edilmiş yeniden istihdam oranları.
+# Formül: reemploy = job_loss * (1 - u) / u  →  denge unemployment ≈ u
+# job_loss_rate = 0.0005/gün baz alınarak hesaplandı (TÜİK 2024)
+_CITY_REEMPLOY = np.array([
+    0.00538,  # 0  İstanbul  %8.5
+    0.00664,  # 1  Ankara    %7.0
+    0.00506,  # 2  İzmir     %9.0
+    0.00575,  # 3  Bursa     %8.0
+    0.00476,  # 4  Antalya   %9.5
+    0.00335,  # 5  Konya     %13.0
+    0.00295,  # 6  Adana     %14.5
+    0.00177,  # 7  Şanlıurfa %22.0
+    0.00405,  # 8  Gaziantep %11.0
+    0.00719,  # 9  Kocaeli   %6.5
+    0.00426,  # 10 Diğer     %10.5
+])
+
 
 def run_simulation(
     effects: list[dict] | None = None,
@@ -60,8 +77,9 @@ def run_simulation_chunked(
     effective_vat = vat_food_rate if vat_food_rate is not None else TUIK_2024["vat_food_rate"]
     daily_inflation = (TUIK_2024["inflation_annual"] + inflation_shock) / 365
 
+    effect_log = []
     if effects:
-        apply_effects(agents, effects)
+        effect_log = apply_effects(agents, effects)
 
     rng = np.random.default_rng(seed + 99)
     price_level = 1.0
@@ -80,10 +98,7 @@ def run_simulation_chunked(
         yield chunk
 
 
-def _step(agents: AgentPopulation, price_level: float, vat_rate: float, rng: np.random.Generator = None, dynamics: dict | None = None) -> None:
-    if rng is None:
-        rng = np.random.default_rng()
-
+def _step(agents: AgentPopulation, price_level: float, vat_rate: float, rng: np.random.Generator, dynamics: dict | None = None) -> None:
     employed_mask = agents.employed
     unemployed_mask = ~employed_mask
 
@@ -165,22 +180,23 @@ def _apply_dynamic_migration(agents: AgentPopulation, rng: np.random.Generator, 
     mig_chance = rng.random(N)
     can_migrate = broke_mask & (mig_chance < 0.002)
 
-    # Tarım sektörü → ucuz doğu/orta illere (Konya idx=41, Şanlıurfa idx=62)
+    # Tarım sektörü → tarım illeri; Şanlıurfa dahil edilmiyor (düşük reemploy oranı)
+    # Konya=41, Gaziantep=26, Samsun=54
     agri_mask = can_migrate & (agents.economic_sector == 0)
     if agri_mask.any():
-        agents.city[agri_mask] = rng.choice([41, 62], size=agri_mask.sum())
+        agents.city[agri_mask] = rng.choice([41, 26, 54], size=agri_mask.sum())
 
     # Sanayi/hizmet → büyük sanayi merkezleri (İstanbul=33, Kocaeli=40, Bursa=15)
     ind_srv_mask = can_migrate & ((agents.economic_sector == 1) | (agents.economic_sector == 3))
     if ind_srv_mask.any():
         agents.city[ind_srv_mask] = rng.choice([33, 40, 15], size=ind_srv_mask.sum())
 
-    # İstanbul/İzmir'deki düşük gelirli kiracılar → Şanlıurfa gibi düşük maliyetli ile
+    # İstanbul/İzmir'deki düşük gelirli kiracılar → çevre iller (Sakarya=53, Bursa=15, Tekirdağ=58)
     poor_renters = (agents.city == 33) | (agents.city == 34)
     poor_renters &= (agents.home_ownership == 1) & (agents.income_percentile < 0.2)
     poor_renters &= (mig_chance < 0.001)
     if poor_renters.any():
-        agents.city[poor_renters] = 62
+        agents.city[poor_renters] = rng.choice([53, 15, 58], size=poor_renters.sum())
 
     young_edu_agri = (agents.age < 30) & (agents.education_level >= 2) & (agents.economic_sector == 0)
     change_sector = young_edu_agri & (rng.random(N) < 0.005)
