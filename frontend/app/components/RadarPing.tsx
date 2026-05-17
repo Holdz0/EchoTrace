@@ -1,14 +1,14 @@
 "use client";
 
 interface Props {
-  x: number; // 0–1 fraction of container width
-  y: number; // 0–1 fraction of container height
-  severity: "critical" | "warning";
+  x: number;
+  y: number;
+  severity: "critical" | "warning" | "success";
   label?: string;
 }
 
 export default function RadarPing({ x, y, severity, label }: Props) {
-  const color = severity === "critical" ? "#ef4444" : "#f59e0b";
+  const color = severity === "critical" ? "#ef4444" : severity === "success" ? "#22c55e" : "#f59e0b";
 
   return (
     <div

@@ -39,15 +39,23 @@ export default function AlertToast({ alerts, scenarioKey }: Props) {
       `}</style>
 
       {visible.map(alert => {
-        const isCrit = alert.severity === "critical";
-        const color  = isCrit ? "#ef4444" : "#f59e0b";
+        const color =
+          alert.severity === "critical" ? "#ef4444" :
+          alert.severity === "success"  ? "#22c55e" :
+          "#f59e0b";
+        const label =
+          alert.severity === "critical" ? "🔴 KRİTİK UYARI" :
+          alert.severity === "success"  ? "🟢 CANLANMA"     :
+          "🟡 UYARI";
         return (
           <div
             key={alert.id}
             style={{
               background: "#030f1e",
-              border: `1px solid ${color}88`,
-              borderLeft: `4px solid ${color}`,
+              borderTop:    `1px solid ${color}66`,
+              borderRight:  `1px solid ${color}66`,
+              borderBottom: `1px solid ${color}66`,
+              borderLeft:   `4px solid ${color}`,
               borderRadius: 8,
               padding: "10px 14px",
               boxShadow: `0 0 24px ${color}33`,
@@ -65,7 +73,7 @@ export default function AlertToast({ alerts, scenarioKey }: Props) {
             >✕</button>
 
             <div style={{ fontSize: 9, fontWeight: 700, color, letterSpacing: 1, marginBottom: 4, textTransform: "uppercase" }}>
-              {isCrit ? "🔴 KRİTİK UYARI" : "🟡 UYARI"} — {alert.provinceName}
+              {label} — {alert.provinceName}
             </div>
             <div style={{ fontSize: 11, color: "#e2e8f0", fontWeight: 600, marginBottom: 4, paddingRight: 18, lineHeight: 1.4 }}>
               {alert.message}

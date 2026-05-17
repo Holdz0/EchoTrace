@@ -1,7 +1,8 @@
 "use client";
 
-import { ComposableMap, Geographies, Geography } from "react-simple-maps";
+import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps";
 import { scoreToColor, type ProvinceStats } from "../lib/provinceSimulation";
+import type { AlertDef } from "../lib/alertSystem";
 
 const GEO_URL = "/turkey.json";
 
@@ -14,9 +15,10 @@ interface Props {
   provinceStats: ProvinceStats[];
   selectedId: string | null;
   onSelect: (id: string, name: string) => void;
+  alerts?: AlertDef[];
 }
 
-export default function TurkeyMap({ provinceStats, selectedId, onSelect }: Props) {
+export default function TurkeyMap({ provinceStats, selectedId, onSelect, alerts = [] }: Props) {
   const statsByName: Record<string, ProvinceStats> = {};
   for (const s of provinceStats) statsByName[s.name] = s;
 
@@ -81,6 +83,39 @@ export default function TurkeyMap({ provinceStats, selectedId, onSelect }: Props
             })
           }
         </Geographies>
+
+        {alerts.map(alert => {
+          const color =
+            alert.severity === "critical" ? "#ef4444" :
+            alert.severity === "success"  ? "#22c55e" :
+            "#f59e0b";
+          return (
+            <Marker key={alert.id} coordinates={[alert.lon, alert.lat]}>
+              <g style={{ pointerEvents: "none" }}>
+                {[0, 0.55, 1.1].map(delay => (
+                  <circle key={delay} cx={0} cy={0} r={3} fill="none" stroke={color} strokeWidth={1.5}>
+                    <animate attributeName="r"       from="2"      to="18"       dur="2.2s" begin={`${delay}s`} repeatCount="indefinite" />
+                    <animate attributeName="opacity" from="0.85"   to="0"        dur="2.2s" begin={`${delay}s`} repeatCount="indefinite" />
+                  </circle>
+                ))}
+                <circle cx={0} cy={0} r={4} fill={color}>
+                  <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite" />
+                </circle>
+                <text
+                  x={0} y={15}
+                  textAnchor="middle"
+                  fill={color}
+                  fontSize={7}
+                  fontWeight="bold"
+                  fontFamily="system-ui, sans-serif"
+                  style={{ userSelect: "none" }}
+                >
+                  {alert.provinceName}
+                </text>
+              </g>
+            </Marker>
+          );
+        })}
       </ComposableMap>
     </div>
   );

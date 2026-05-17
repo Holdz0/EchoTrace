@@ -144,7 +144,7 @@ def _step(agents: AgentPopulation, price_level: float, vat_rate: float, rng: np.
         0.9 + 0.4 * agents.income_percentile[found_job]
     )
 
-    # --- GÖÇ DİNAMİĞİ ---
+    # --- GÖÇ DİNAMİĞİ (sadece LLM policy dynamics ile tetiklenir) ---
     if dynamics:
         for m in dynamics.get("migration", []):
             from_c = int(m["from_city"])
@@ -153,45 +153,6 @@ def _step(agents: AgentPopulation, price_level: float, vat_rate: float, rng: np.
             from_mask = unemployed_mask & (agents.city == from_c)
             migrate = from_mask & (rng.random(N) < rate)
             agents.city[migrate] = to_c
-            # Coğrafi yasak: ajanlar yasak bölgeden çıkınca yeniden çalışabilir
             agents.can_work[migrate] = True
-
-    _apply_dynamic_migration(agents, rng, broke_mask)
-
-def _apply_dynamic_migration(agents: AgentPopulation, rng: np.random.Generator, broke_mask: np.ndarray) -> None:
-    # Province indices = plate - 1:
-    #   İstanbul=33, İzmir=34, Kocaeli=40, Bursa=15, Konya=41, Şanlıurfa=62, Adana=0
-    N = len(agents.city)
-    mig_chance = rng.random(N)
-    can_migrate = broke_mask & (mig_chance < 0.002)
-
-    # Tarım sektörü → ucuz doğu/orta illere (Konya idx=41, Şanlıurfa idx=62)
-    agri_mask = can_migrate & (agents.economic_sector == 0)
-    if agri_mask.any():
-        agents.city[agri_mask] = rng.choice([41, 62], size=agri_mask.sum())
-
-    # Sanayi/hizmet → büyük sanayi merkezleri (İstanbul=33, Kocaeli=40, Bursa=15)
-    ind_srv_mask = can_migrate & ((agents.economic_sector == 1) | (agents.economic_sector == 3))
-    if ind_srv_mask.any():
-        agents.city[ind_srv_mask] = rng.choice([33, 40, 15], size=ind_srv_mask.sum())
-
-    # İstanbul/İzmir'deki düşük gelirli kiracılar → Şanlıurfa gibi düşük maliyetli ile
-    poor_renters = (agents.city == 33) | (agents.city == 34)
-    poor_renters &= (agents.home_ownership == 1) & (agents.income_percentile < 0.2)
-    poor_renters &= (mig_chance < 0.001)
-    if poor_renters.any():
-        agents.city[poor_renters] = 62
-
-    young_edu_agri = (agents.age < 30) & (agents.education_level >= 2) & (agents.economic_sector == 0)
-    change_sector = young_edu_agri & (rng.random(N) < 0.005)
-    if change_sector.any():
-        agents.economic_sector[change_sector] = rng.choice([1, 3], size=change_sector.sum())
-        agents.employed[change_sector] = False
-        agents.income[change_sector] = 0.0
-
-    low_income_formal = agents.employed & (~agents.informal_employment) & (agents.income_percentile < 0.3)
-    go_informal = low_income_formal & (rng.random(N) < 0.0005)
-    if go_informal.any():
-        agents.informal_employment[go_informal] = True
 
 
