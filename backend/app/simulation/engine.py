@@ -159,7 +159,7 @@ def _step(agents: AgentPopulation, price_level: float, vat_rate: float, rng: np.
         0.9 + 0.4 * agents.income_percentile[found_job]
     )
 
-    # --- GÖÇ DİNAMİĞİ ---
+    # --- GÖÇ DİNAMİĞİ (sadece LLM policy dynamics ile tetiklenir) ---
     if dynamics:
         for m in dynamics.get("migration", []):
             from_c = int(m["from_city"])
@@ -168,7 +168,6 @@ def _step(agents: AgentPopulation, price_level: float, vat_rate: float, rng: np.
             from_mask = unemployed_mask & (agents.city == from_c)
             migrate = from_mask & (rng.random(N) < rate)
             agents.city[migrate] = to_c
-            # Coğrafi yasak: ajanlar yasak bölgeden çıkınca yeniden çalışabilir
             agents.can_work[migrate] = True
 
     _apply_dynamic_migration(agents, rng, broke_mask)

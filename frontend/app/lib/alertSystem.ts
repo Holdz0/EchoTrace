@@ -9,7 +9,7 @@ export interface AlertDef {
   message: string;
   detail: string;
   triggerDay: number;
-  severity: "critical" | "warning";
+  severity: "critical" | "warning" | "success";
 }
 
 const ALERTS: Record<ScenarioKey, AlertDef[]> = {
@@ -86,6 +86,65 @@ const ALERTS: Record<ScenarioKey, AlertDef[]> = {
 
 export function getActiveAlerts(day: number, scenario: ScenarioKey): AlertDef[] {
   return ALERTS[scenario].filter(a => day >= a.triggerDay && day < a.triggerDay + 65);
+}
+
+// ── DEMO SENARYOSU: 6301 Tersine Göç Paketi ──────────────────────────────────
+const DEMO_ALERTS: AlertDef[] = [
+  // FAZ 1: Bahar — Yeşil canlanma
+  {
+    id: "d-1", provinceId: "25", provinceName: "Erzurum", lat: 39.90, lon: 41.27,
+    message: "CANLANMA: İlk tersine göç dalgası başladı!",
+    detail: "1.247 beyaz yakalı hibe başvurusunu tamamladı. Erzurum'da tüketim %22 büyüdü.",
+    triggerDay: 18, severity: "success",
+  },
+  {
+    id: "d-2", provinceId: "25", provinceName: "Erzurum", lat: 39.90, lon: 41.27,
+    message: "BÜYÜME: 138 yeni iş yeri, 2.400 yeni istihdam!",
+    detail: "Hizmet sektörü kapasitesi 3 ayda %31 genişledi. Ekonomik canlanma hedefi aşıldı.",
+    triggerDay: 55, severity: "success",
+  },
+  {
+    id: "d-3", provinceId: "34", provinceName: "İstanbul", lat: 41.01, lon: 28.95,
+    message: "UYARI: İstanbul'da beyaz yaka göçü ivme kazandı",
+    detail: "Aylık ortalama 340 nitelikli çalışan İstanbul'u terk ediyor. Bazı sektörlerde personel baskısı oluşuyor.",
+    triggerDay: 72, severity: "warning",
+  },
+  // FAZ 2: Sarı Alarm — Konut krizi
+  {
+    id: "d-4", provinceId: "25", provinceName: "Erzurum", lat: 39.90, lon: 41.27,
+    message: "UYARI: Erzurum'da kiralık konut tükeniyor!",
+    detail: "Talep/arz oranı 4.2x'e ulaştı. Kira ortalaması %68 artışla 18.400 TL'ye yükseldi.",
+    triggerDay: 98, severity: "warning",
+  },
+  {
+    id: "d-5", provinceId: "25", provinceName: "Erzurum", lat: 39.90, lon: 41.27,
+    message: "UYARI: Yerel halkın %31'i kira krizinde!",
+    detail: "Belediye acil konut krizi ilan etti. 847 bağımsız birim spekülatif amaçlı boş tutuluyor.",
+    triggerDay: 140, severity: "warning",
+  },
+  // FAZ 3: Kırmızı Çöküş
+  {
+    id: "d-6", provinceId: "25", provinceName: "Erzurum", lat: 39.90, lon: 41.27,
+    message: "KRİTİK: Evsizlik %400 arttı! Barınak kapasitesi doldu.",
+    detail: "Yerel halkın %23'ü konut erişimini yitirdi. Hizmet sektörü %67 kapasitede çalışıyor.",
+    triggerDay: 190, severity: "critical",
+  },
+  {
+    id: "d-7", provinceId: "34", provinceName: "İstanbul", lat: 41.01, lon: 28.95,
+    message: "KRİTİK KELEBEK ETKİSİ: İstanbul ikincil krizde!",
+    detail: "Erzurum'dan dönen göçmenler İstanbul konut piyasasında yeni baskı yaratıyor.",
+    triggerDay: 248, severity: "critical",
+  },
+  {
+    id: "d-8", provinceId: "25", provinceName: "Erzurum", lat: 39.90, lon: 41.27,
+    message: "FELAKET: Hizmet sektörü çöktü. 234 esnaf kepenk kapattı.",
+    detail: "Yasa kapsamındaki göçmenlerin %41'i kenti terk etti. Yerel ekonomi 2019 düzeyinin altında.",
+    triggerDay: 308, severity: "critical",
+  },
+];
+
+export function getDemoAlerts(day: number): AlertDef[] {
+  return DEMO_ALERTS.filter(a => day >= a.triggerDay && day < a.triggerDay + 70);
 }
 
 export function getAllTriggeredAlerts(day: number, scenario: ScenarioKey): AlertDef[] {
