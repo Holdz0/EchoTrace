@@ -1,6 +1,6 @@
 import numpy as np
 from .calibration import TUIK_2024
-from .cities import CITY_BY_ID, CITY_NAMES
+from .provinces import PROVINCE_NAMES, PROVINCE_COUNT
 
 
 def gini_coefficient(incomes: np.ndarray) -> float:
@@ -51,12 +51,13 @@ def winner_loser_neutral(
 
 def city_unemployment_breakdown(city: np.ndarray, employed: np.ndarray) -> dict:
     result = {}
-    for city_id, city_name in enumerate(CITY_NAMES):
-        mask = city == city_id
-        if mask.sum() == 0:
+    for prov_idx in range(PROVINCE_COUNT):
+        mask = city == prov_idx
+        n = mask.sum()
+        if n < 5:
             continue
         unemp = float(1.0 - employed[mask].mean())
-        result[city_name] = round(unemp, 4)
+        result[PROVINCE_NAMES[prov_idx]] = round(unemp, 4)
     return result
 
 

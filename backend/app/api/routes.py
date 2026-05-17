@@ -134,6 +134,55 @@ async def parse_and_simulate(body: LawInput):
         return {"error": f"Beklenmedik hata: {type(e).__name__}: {e}", "results": []}
 
 
+@router.get("/city-agents/{city_name}")
+async def get_city_agents(city_name: str, n: int = 60, province_seed: int = 0):
+    """Bir şehrin gerçek demografik ajan örneklemesini döndürür (seed=42 popülasyonu).
+    province_seed ile aynı şehre bağlı farklı iller farklı alt örneklem alır."""
+    import numpy as np
+    from ..simulation.agents import create_population
+    from ..simulation.provinces import NAME_TO_IDX
+
+    city_id = NAME_TO_IDX.get(city_name)
+    if city_id is None:
+        return {"city": city_name, "agents": []}
+
+    agents = create_population()
+    indices = np.where(agents.city == city_id)[0]
+    if len(indices) == 0:
+        return {"city": city_name, "agents": []}
+
+    # province_seed ile her il kendi alt örneklemini alır
+    rng = np.random.default_rng(city_id * 13 + 7 + province_seed * 97)
+    sample = rng.choice(indices, size=min(n, len(indices)), replace=False)
+
+    PROFESSIONS   = ["Memur", "İşçi", "Serbest Meslek", "Çiftçi", "İşsiz"]
+    GENDERS       = ["Erkek", "Kadın"]
+    EDUCATION     = ["İlkokul", "Ortaokul", "Lise", "Üniversite"]
+    HOME          = ["Ev Sahibi", "Kiracı", "Aileyle Yaşayan"]
+    SECTOR        = ["Tarım", "Sanayi", "İnşaat", "Hizmet"]
+
+    result = []
+    for i in sample:
+        result.append({
+            "id":                int(i),
+            "age":               int(agents.age[i]),
+            "income":            int(round(float(agents.income[i]))),
+            "income_percentile": round(float(agents.income_percentile[i]), 3),
+            "profession":        PROFESSIONS[int(agents.profession[i])],
+            "gender":            GENDERS[int(agents.gender[i])],
+            "education_level":   EDUCATION[int(agents.education_level[i])],
+            "children_count":    int(agents.children_count[i]),
+            "home_ownership":    HOME[int(agents.home_ownership[i])],
+            "economic_sector":   SECTOR[int(agents.economic_sector[i])],
+            "informal_employment": bool(agents.informal_employment[i]),
+            "debt":              int(round(float(agents.debt[i]))),
+            "savings":           int(round(float(agents.savings[i]))),
+            "employed":          bool(agents.employed[i]),
+        })
+
+    return {"city": city_name, "total_in_city": int(len(indices)), "agents": result}
+
+
 @router.get("/health")
 async def health():
     return {"status": "ok"}

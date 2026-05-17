@@ -1,0 +1,2918 @@
+[
+  {
+    "plate": 1,
+    "name": "Adana",
+    "nuts2": "TR62",
+    "population": 2274106,
+    "age_mean": 34.5,
+    "age_std": 11.5,
+    "youth_share": 0.34,
+    "female_pct": 0.499,
+    "income_mult": 0.91,
+    "income_p20": 8200,
+    "income_p50": 15500,
+    "income_p80": 38200,
+    "unemployment_rate": 0.13,
+    "education_dist": {
+      "primary_or_less": 0.2,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.2
+    },
+    "children_mean": 2.0,
+    "home_ownership_dist": {
+      "owner": 0.58,
+      "renter": 0.3,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.18,
+      "industry": 0.22,
+      "construction": 0.07,
+      "services": 0.53
+    },
+    "informal_employment_rate": 0.38,
+    "debt_to_income_ratio": 1.5,
+    "estimated": true
+  },
+  {
+    "plate": 2,
+    "name": "Adıyaman",
+    "nuts2": "TRC1",
+    "population": 632362,
+    "age_mean": 30.0,
+    "age_std": 11.5,
+    "youth_share": 0.39,
+    "female_pct": 0.498,
+    "income_mult": 0.72,
+    "income_p20": 6500,
+    "income_p50": 12200,
+    "income_p80": 30200,
+    "unemployment_rate": 0.155,
+    "education_dist": {
+      "primary_or_less": 0.22,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.18
+    },
+    "children_mean": 2.8,
+    "home_ownership_dist": {
+      "owner": 0.6,
+      "renter": 0.26,
+      "with_family": 0.14
+    },
+    "sector_weights": {
+      "agriculture": 0.277,
+      "industry": 0.178,
+      "construction": 0.069,
+      "services": 0.475
+    },
+    "informal_employment_rate": 0.4,
+    "debt_to_income_ratio": 1.3,
+    "estimated": true
+  },
+  {
+    "plate": 3,
+    "name": "Afyonkarahisar",
+    "nuts2": "TR33",
+    "population": 748145,
+    "age_mean": 38.5,
+    "age_std": 11.5,
+    "youth_share": 0.29,
+    "female_pct": 0.5,
+    "income_mult": 0.93,
+    "income_p20": 8400,
+    "income_p50": 15800,
+    "income_p80": 39100,
+    "unemployment_rate": 0.102,
+    "education_dist": {
+      "primary_or_less": 0.21,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.19
+    },
+    "children_mean": 1.8,
+    "home_ownership_dist": {
+      "owner": 0.62,
+      "renter": 0.26,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.28,
+      "industry": 0.22,
+      "construction": 0.06,
+      "services": 0.44
+    },
+    "informal_employment_rate": 0.38,
+    "debt_to_income_ratio": 1.5,
+    "estimated": true
+  },
+  {
+    "plate": 4,
+    "name": "Ağrı",
+    "nuts2": "TRA2",
+    "population": 507590,
+    "age_mean": 24.4,
+    "age_std": 9.5,
+    "youth_share": 0.44,
+    "female_pct": 0.497,
+    "income_mult": 0.52,
+    "income_p20": 4700,
+    "income_p50": 8800,
+    "income_p80": 21800,
+    "unemployment_rate": 0.2,
+    "education_dist": {
+      "primary_or_less": 0.3,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.1
+    },
+    "children_mean": 3.8,
+    "home_ownership_dist": {
+      "owner": 0.72,
+      "renter": 0.14,
+      "with_family": 0.14
+    },
+    "sector_weights": {
+      "agriculture": 0.42,
+      "industry": 0.12,
+      "construction": 0.06,
+      "services": 0.4
+    },
+    "informal_employment_rate": 0.63,
+    "debt_to_income_ratio": 0.8,
+    "estimated": true
+  },
+  {
+    "plate": 5,
+    "name": "Amasya",
+    "nuts2": "TR83",
+    "population": 336323,
+    "age_mean": 39.5,
+    "age_std": 12.0,
+    "youth_share": 0.27,
+    "female_pct": 0.5,
+    "income_mult": 0.82,
+    "income_p20": 7400,
+    "income_p50": 13900,
+    "income_p80": 34400,
+    "unemployment_rate": 0.112,
+    "education_dist": {
+      "primary_or_less": 0.23,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.17
+    },
+    "children_mean": 1.9,
+    "home_ownership_dist": {
+      "owner": 0.66,
+      "renter": 0.22,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.26,
+      "industry": 0.2,
+      "construction": 0.06,
+      "services": 0.48
+    },
+    "informal_employment_rate": 0.43,
+    "debt_to_income_ratio": 1.2,
+    "estimated": true
+  },
+  {
+    "plate": 6,
+    "name": "Ankara",
+    "nuts2": "TR51",
+    "population": 5864049,
+    "age_mean": 37.0,
+    "age_std": 11.0,
+    "youth_share": 0.3,
+    "female_pct": 0.5,
+    "income_mult": 1.28,
+    "income_p20": 11500,
+    "income_p50": 21800,
+    "income_p80": 53800,
+    "unemployment_rate": 0.072,
+    "education_dist": {
+      "primary_or_less": 0.08,
+      "middle_school": 0.22,
+      "high_school": 0.32,
+      "university": 0.38
+    },
+    "children_mean": 1.4,
+    "home_ownership_dist": {
+      "owner": 0.48,
+      "renter": 0.41,
+      "with_family": 0.11
+    },
+    "sector_weights": {
+      "agriculture": 0.02,
+      "industry": 0.18,
+      "construction": 0.07,
+      "services": 0.73
+    },
+    "informal_employment_rate": 0.18,
+    "debt_to_income_ratio": 2.2,
+    "estimated": false
+  },
+  {
+    "plate": 7,
+    "name": "Antalya",
+    "nuts2": "TR61",
+    "population": 2619832,
+    "age_mean": 37.5,
+    "age_std": 11.5,
+    "youth_share": 0.3,
+    "female_pct": 0.501,
+    "income_mult": 1.08,
+    "income_p20": 9700,
+    "income_p50": 18400,
+    "income_p80": 45400,
+    "unemployment_rate": 0.098,
+    "education_dist": {
+      "primary_or_less": 0.12,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.28
+    },
+    "children_mean": 1.7,
+    "home_ownership_dist": {
+      "owner": 0.57,
+      "renter": 0.31,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.08,
+      "industry": 0.18,
+      "construction": 0.06,
+      "services": 0.68
+    },
+    "informal_employment_rate": 0.28,
+    "debt_to_income_ratio": 1.8,
+    "estimated": true
+  },
+  {
+    "plate": 8,
+    "name": "Artvin",
+    "nuts2": "TR90",
+    "population": 169543,
+    "age_mean": 41.5,
+    "age_std": 11.5,
+    "youth_share": 0.24,
+    "female_pct": 0.501,
+    "income_mult": 0.84,
+    "income_p20": 7600,
+    "income_p50": 14300,
+    "income_p80": 35300,
+    "unemployment_rate": 0.098,
+    "education_dist": {
+      "primary_or_less": 0.23,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.17
+    },
+    "children_mean": 1.8,
+    "home_ownership_dist": {
+      "owner": 0.68,
+      "renter": 0.2,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.308,
+      "industry": 0.154,
+      "construction": 0.058,
+      "services": 0.481
+    },
+    "informal_employment_rate": 0.44,
+    "debt_to_income_ratio": 1.2,
+    "estimated": true
+  },
+  {
+    "plate": 9,
+    "name": "Aydın",
+    "nuts2": "TR32",
+    "population": 1155684,
+    "age_mean": 40.0,
+    "age_std": 11.5,
+    "youth_share": 0.28,
+    "female_pct": 0.501,
+    "income_mult": 1.05,
+    "income_p20": 9400,
+    "income_p50": 17800,
+    "income_p80": 44100,
+    "unemployment_rate": 0.098,
+    "education_dist": {
+      "primary_or_less": 0.16,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.24
+    },
+    "children_mean": 1.6,
+    "home_ownership_dist": {
+      "owner": 0.58,
+      "renter": 0.31,
+      "with_family": 0.11
+    },
+    "sector_weights": {
+      "agriculture": 0.214,
+      "industry": 0.194,
+      "construction": 0.058,
+      "services": 0.534
+    },
+    "informal_employment_rate": 0.34,
+    "debt_to_income_ratio": 1.8,
+    "estimated": true
+  },
+  {
+    "plate": 10,
+    "name": "Balıkesir",
+    "nuts2": "TR22",
+    "population": 1266462,
+    "age_mean": 38.5,
+    "age_std": 11.5,
+    "youth_share": 0.28,
+    "female_pct": 0.5,
+    "income_mult": 1.02,
+    "income_p20": 9200,
+    "income_p50": 17300,
+    "income_p80": 42800,
+    "unemployment_rate": 0.092,
+    "education_dist": {
+      "primary_or_less": 0.17,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.23
+    },
+    "children_mean": 1.7,
+    "home_ownership_dist": {
+      "owner": 0.6,
+      "renter": 0.28,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.2,
+      "industry": 0.22,
+      "construction": 0.06,
+      "services": 0.52
+    },
+    "informal_employment_rate": 0.35,
+    "debt_to_income_ratio": 1.7,
+    "estimated": true
+  },
+  {
+    "plate": 11,
+    "name": "Bilecik",
+    "nuts2": "TR41",
+    "population": 226862,
+    "age_mean": 37.0,
+    "age_std": 11.0,
+    "youth_share": 0.31,
+    "female_pct": 0.499,
+    "income_mult": 1.14,
+    "income_p20": 10300,
+    "income_p50": 19400,
+    "income_p80": 47900,
+    "unemployment_rate": 0.082,
+    "education_dist": {
+      "primary_or_less": 0.13,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.27
+    },
+    "children_mean": 1.6,
+    "home_ownership_dist": {
+      "owner": 0.52,
+      "renter": 0.37,
+      "with_family": 0.11
+    },
+    "sector_weights": {
+      "agriculture": 0.04,
+      "industry": 0.416,
+      "construction": 0.069,
+      "services": 0.475
+    },
+    "informal_employment_rate": 0.24,
+    "debt_to_income_ratio": 2.0,
+    "estimated": false
+  },
+  {
+    "plate": 12,
+    "name": "Bingöl",
+    "nuts2": "TRB1",
+    "population": 298777,
+    "age_mean": 29.0,
+    "age_std": 12.0,
+    "youth_share": 0.42,
+    "female_pct": 0.498,
+    "income_mult": 0.62,
+    "income_p20": 5600,
+    "income_p50": 10500,
+    "income_p80": 26000,
+    "unemployment_rate": 0.168,
+    "education_dist": {
+      "primary_or_less": 0.25,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.15
+    },
+    "children_mean": 3.0,
+    "home_ownership_dist": {
+      "owner": 0.68,
+      "renter": 0.18,
+      "with_family": 0.14
+    },
+    "sector_weights": {
+      "agriculture": 0.352,
+      "industry": 0.167,
+      "construction": 0.065,
+      "services": 0.417
+    },
+    "informal_employment_rate": 0.5,
+    "debt_to_income_ratio": 1.0,
+    "estimated": true
+  },
+  {
+    "plate": 13,
+    "name": "Bitlis",
+    "nuts2": "TRB2",
+    "population": 332638,
+    "age_mean": 25.5,
+    "age_std": 10.0,
+    "youth_share": 0.44,
+    "female_pct": 0.496,
+    "income_mult": 0.48,
+    "income_p20": 4300,
+    "income_p50": 8200,
+    "income_p80": 20200,
+    "unemployment_rate": 0.228,
+    "education_dist": {
+      "primary_or_less": 0.31,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.09
+    },
+    "children_mean": 3.8,
+    "home_ownership_dist": {
+      "owner": 0.72,
+      "renter": 0.13,
+      "with_family": 0.15
+    },
+    "sector_weights": {
+      "agriculture": 0.38,
+      "industry": 0.12,
+      "construction": 0.06,
+      "services": 0.44
+    },
+    "informal_employment_rate": 0.62,
+    "debt_to_income_ratio": 0.7,
+    "estimated": true
+  },
+  {
+    "plate": 14,
+    "name": "Bolu",
+    "nuts2": "TR42",
+    "population": 330386,
+    "age_mean": 36.5,
+    "age_std": 11.0,
+    "youth_share": 0.31,
+    "female_pct": 0.499,
+    "income_mult": 1.1,
+    "income_p20": 9900,
+    "income_p50": 18700,
+    "income_p80": 46200,
+    "unemployment_rate": 0.068,
+    "education_dist": {
+      "primary_or_less": 0.14,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.26
+    },
+    "children_mean": 1.6,
+    "home_ownership_dist": {
+      "owner": 0.53,
+      "renter": 0.36,
+      "with_family": 0.11
+    },
+    "sector_weights": {
+      "agriculture": 0.119,
+      "industry": 0.317,
+      "construction": 0.069,
+      "services": 0.495
+    },
+    "informal_employment_rate": 0.22,
+    "debt_to_income_ratio": 2.1,
+    "estimated": false
+  },
+  {
+    "plate": 15,
+    "name": "Burdur",
+    "nuts2": "TR61",
+    "population": 275003,
+    "age_mean": 40.0,
+    "age_std": 11.5,
+    "youth_share": 0.26,
+    "female_pct": 0.501,
+    "income_mult": 1.04,
+    "income_p20": 9400,
+    "income_p50": 17700,
+    "income_p80": 43700,
+    "unemployment_rate": 0.105,
+    "education_dist": {
+      "primary_or_less": 0.14,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.26
+    },
+    "children_mean": 1.7,
+    "home_ownership_dist": {
+      "owner": 0.57,
+      "renter": 0.31,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.218,
+      "industry": 0.178,
+      "construction": 0.059,
+      "services": 0.545
+    },
+    "informal_employment_rate": 0.32,
+    "debt_to_income_ratio": 1.8,
+    "estimated": true
+  },
+  {
+    "plate": 16,
+    "name": "Bursa",
+    "nuts2": "TR41",
+    "population": 3147818,
+    "age_mean": 37.0,
+    "age_std": 11.0,
+    "youth_share": 0.31,
+    "female_pct": 0.499,
+    "income_mult": 1.16,
+    "income_p20": 10400,
+    "income_p50": 19700,
+    "income_p80": 48700,
+    "unemployment_rate": 0.08,
+    "education_dist": {
+      "primary_or_less": 0.13,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.27
+    },
+    "children_mean": 1.6,
+    "home_ownership_dist": {
+      "owner": 0.52,
+      "renter": 0.37,
+      "with_family": 0.11
+    },
+    "sector_weights": {
+      "agriculture": 0.04,
+      "industry": 0.42,
+      "construction": 0.07,
+      "services": 0.47
+    },
+    "informal_employment_rate": 0.2,
+    "debt_to_income_ratio": 2.0,
+    "estimated": false
+  },
+  {
+    "plate": 17,
+    "name": "Çanakkale",
+    "nuts2": "TR22",
+    "population": 583786,
+    "age_mean": 38.5,
+    "age_std": 11.5,
+    "youth_share": 0.28,
+    "female_pct": 0.5,
+    "income_mult": 1.06,
+    "income_p20": 9500,
+    "income_p50": 18000,
+    "income_p80": 44500,
+    "unemployment_rate": 0.092,
+    "education_dist": {
+      "primary_or_less": 0.17,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.23
+    },
+    "children_mean": 1.7,
+    "home_ownership_dist": {
+      "owner": 0.6,
+      "renter": 0.28,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.173,
+      "industry": 0.212,
+      "construction": 0.058,
+      "services": 0.558
+    },
+    "informal_employment_rate": 0.35,
+    "debt_to_income_ratio": 1.7,
+    "estimated": true
+  },
+  {
+    "plate": 18,
+    "name": "Çankırı",
+    "nuts2": "TR82",
+    "population": 200114,
+    "age_mean": 40.5,
+    "age_std": 11.0,
+    "youth_share": 0.25,
+    "female_pct": 0.5,
+    "income_mult": 0.74,
+    "income_p20": 6700,
+    "income_p50": 12600,
+    "income_p80": 31100,
+    "unemployment_rate": 0.105,
+    "education_dist": {
+      "primary_or_less": 0.26,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.14
+    },
+    "children_mean": 1.9,
+    "home_ownership_dist": {
+      "owner": 0.7,
+      "renter": 0.18,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.286,
+      "industry": 0.184,
+      "construction": 0.061,
+      "services": 0.469
+    },
+    "informal_employment_rate": 0.46,
+    "debt_to_income_ratio": 1.1,
+    "estimated": true
+  },
+  {
+    "plate": 19,
+    "name": "Çorum",
+    "nuts2": "TR83",
+    "population": 521905,
+    "age_mean": 37.5,
+    "age_std": 12.0,
+    "youth_share": 0.3,
+    "female_pct": 0.5,
+    "income_mult": 0.82,
+    "income_p20": 7400,
+    "income_p50": 13900,
+    "income_p80": 34400,
+    "unemployment_rate": 0.112,
+    "education_dist": {
+      "primary_or_less": 0.23,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.17
+    },
+    "children_mean": 1.9,
+    "home_ownership_dist": {
+      "owner": 0.66,
+      "renter": 0.22,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.28,
+      "industry": 0.22,
+      "construction": 0.06,
+      "services": 0.44
+    },
+    "informal_employment_rate": 0.43,
+    "debt_to_income_ratio": 1.2,
+    "estimated": true
+  },
+  {
+    "plate": 20,
+    "name": "Denizli",
+    "nuts2": "TR32",
+    "population": 1054958,
+    "age_mean": 39.0,
+    "age_std": 11.5,
+    "youth_share": 0.28,
+    "female_pct": 0.501,
+    "income_mult": 1.08,
+    "income_p20": 9700,
+    "income_p50": 18400,
+    "income_p80": 45400,
+    "unemployment_rate": 0.098,
+    "education_dist": {
+      "primary_or_less": 0.16,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.24
+    },
+    "children_mean": 1.6,
+    "home_ownership_dist": {
+      "owner": 0.58,
+      "renter": 0.31,
+      "with_family": 0.11
+    },
+    "sector_weights": {
+      "agriculture": 0.12,
+      "industry": 0.3,
+      "construction": 0.06,
+      "services": 0.52
+    },
+    "informal_employment_rate": 0.28,
+    "debt_to_income_ratio": 1.8,
+    "estimated": true
+  },
+  {
+    "plate": 21,
+    "name": "Diyarbakır",
+    "nuts2": "TRC2",
+    "population": 1804880,
+    "age_mean": 26.5,
+    "age_std": 10.5,
+    "youth_share": 0.44,
+    "female_pct": 0.496,
+    "income_mult": 0.62,
+    "income_p20": 5600,
+    "income_p50": 10500,
+    "income_p80": 26000,
+    "unemployment_rate": 0.22,
+    "education_dist": {
+      "primary_or_less": 0.3,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.1
+    },
+    "children_mean": 3.6,
+    "home_ownership_dist": {
+      "owner": 0.65,
+      "renter": 0.19,
+      "with_family": 0.16
+    },
+    "sector_weights": {
+      "agriculture": 0.32,
+      "industry": 0.14,
+      "construction": 0.07,
+      "services": 0.47
+    },
+    "informal_employment_rate": 0.58,
+    "debt_to_income_ratio": 0.8,
+    "estimated": true
+  },
+  {
+    "plate": 22,
+    "name": "Edirne",
+    "nuts2": "TR21",
+    "population": 418895,
+    "age_mean": 37.5,
+    "age_std": 11.5,
+    "youth_share": 0.29,
+    "female_pct": 0.5,
+    "income_mult": 1.15,
+    "income_p20": 10400,
+    "income_p50": 19600,
+    "income_p80": 48300,
+    "unemployment_rate": 0.095,
+    "education_dist": {
+      "primary_or_less": 0.12,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.28
+    },
+    "children_mean": 1.6,
+    "home_ownership_dist": {
+      "owner": 0.55,
+      "renter": 0.35,
+      "with_family": 0.1
+    },
+    "sector_weights": {
+      "agriculture": 0.132,
+      "industry": 0.264,
+      "construction": 0.057,
+      "services": 0.547
+    },
+    "informal_employment_rate": 0.3,
+    "debt_to_income_ratio": 2.0,
+    "estimated": true
+  },
+  {
+    "plate": 23,
+    "name": "Elazığ",
+    "nuts2": "TRB1",
+    "population": 605399,
+    "age_mean": 33.0,
+    "age_std": 12.0,
+    "youth_share": 0.36,
+    "female_pct": 0.498,
+    "income_mult": 0.74,
+    "income_p20": 6700,
+    "income_p50": 12600,
+    "income_p80": 31100,
+    "unemployment_rate": 0.138,
+    "education_dist": {
+      "primary_or_less": 0.25,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.15
+    },
+    "children_mean": 2.2,
+    "home_ownership_dist": {
+      "owner": 0.68,
+      "renter": 0.18,
+      "with_family": 0.14
+    },
+    "sector_weights": {
+      "agriculture": 0.3,
+      "industry": 0.18,
+      "construction": 0.07,
+      "services": 0.45
+    },
+    "informal_employment_rate": 0.5,
+    "debt_to_income_ratio": 1.0,
+    "estimated": true
+  },
+  {
+    "plate": 24,
+    "name": "Erzincan",
+    "nuts2": "TRA1",
+    "population": 222786,
+    "age_mean": 34.0,
+    "age_std": 11.5,
+    "youth_share": 0.34,
+    "female_pct": 0.498,
+    "income_mult": 0.68,
+    "income_p20": 6100,
+    "income_p50": 11600,
+    "income_p80": 28600,
+    "unemployment_rate": 0.148,
+    "education_dist": {
+      "primary_or_less": 0.27,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.13
+    },
+    "children_mean": 2.6,
+    "home_ownership_dist": {
+      "owner": 0.7,
+      "renter": 0.16,
+      "with_family": 0.14
+    },
+    "sector_weights": {
+      "agriculture": 0.38,
+      "industry": 0.15,
+      "construction": 0.06,
+      "services": 0.41
+    },
+    "informal_employment_rate": 0.54,
+    "debt_to_income_ratio": 0.9,
+    "estimated": true
+  },
+  {
+    "plate": 25,
+    "name": "Erzurum",
+    "nuts2": "TRA1",
+    "population": 762321,
+    "age_mean": 32.0,
+    "age_std": 11.5,
+    "youth_share": 0.38,
+    "female_pct": 0.498,
+    "income_mult": 0.66,
+    "income_p20": 5900,
+    "income_p50": 11200,
+    "income_p80": 27700,
+    "unemployment_rate": 0.155,
+    "education_dist": {
+      "primary_or_less": 0.27,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.13
+    },
+    "children_mean": 2.7,
+    "home_ownership_dist": {
+      "owner": 0.7,
+      "renter": 0.16,
+      "with_family": 0.14
+    },
+    "sector_weights": {
+      "agriculture": 0.392,
+      "industry": 0.147,
+      "construction": 0.059,
+      "services": 0.402
+    },
+    "informal_employment_rate": 0.54,
+    "debt_to_income_ratio": 0.9,
+    "estimated": true
+  },
+  {
+    "plate": 26,
+    "name": "Eskişehir",
+    "nuts2": "TR41",
+    "population": 913255,
+    "age_mean": 37.0,
+    "age_std": 11.0,
+    "youth_share": 0.31,
+    "female_pct": 0.499,
+    "income_mult": 1.1,
+    "income_p20": 9900,
+    "income_p50": 18700,
+    "income_p80": 46200,
+    "unemployment_rate": 0.085,
+    "education_dist": {
+      "primary_or_less": 0.1,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.3
+    },
+    "children_mean": 1.6,
+    "home_ownership_dist": {
+      "owner": 0.52,
+      "renter": 0.37,
+      "with_family": 0.11
+    },
+    "sector_weights": {
+      "agriculture": 0.049,
+      "industry": 0.294,
+      "construction": 0.069,
+      "services": 0.588
+    },
+    "informal_employment_rate": 0.24,
+    "debt_to_income_ratio": 2.0,
+    "estimated": false
+  },
+  {
+    "plate": 27,
+    "name": "Gaziantep",
+    "nuts2": "TRC1",
+    "population": 2154051,
+    "age_mean": 29.5,
+    "age_std": 11.5,
+    "youth_share": 0.4,
+    "female_pct": 0.498,
+    "income_mult": 0.92,
+    "income_p20": 8300,
+    "income_p50": 15600,
+    "income_p80": 38600,
+    "unemployment_rate": 0.115,
+    "education_dist": {
+      "primary_or_less": 0.22,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.18
+    },
+    "children_mean": 2.6,
+    "home_ownership_dist": {
+      "owner": 0.6,
+      "renter": 0.26,
+      "with_family": 0.14
+    },
+    "sector_weights": {
+      "agriculture": 0.12,
+      "industry": 0.32,
+      "construction": 0.07,
+      "services": 0.49
+    },
+    "informal_employment_rate": 0.4,
+    "debt_to_income_ratio": 1.3,
+    "estimated": true
+  },
+  {
+    "plate": 28,
+    "name": "Giresun",
+    "nuts2": "TR90",
+    "population": 428968,
+    "age_mean": 42.9,
+    "age_std": 11.5,
+    "youth_share": 0.23,
+    "female_pct": 0.501,
+    "income_mult": 0.8,
+    "income_p20": 7200,
+    "income_p50": 13600,
+    "income_p80": 33600,
+    "unemployment_rate": 0.098,
+    "education_dist": {
+      "primary_or_less": 0.23,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.17
+    },
+    "children_mean": 1.8,
+    "home_ownership_dist": {
+      "owner": 0.68,
+      "renter": 0.2,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.327,
+      "industry": 0.15,
+      "construction": 0.056,
+      "services": 0.467
+    },
+    "informal_employment_rate": 0.44,
+    "debt_to_income_ratio": 1.2,
+    "estimated": true
+  },
+  {
+    "plate": 29,
+    "name": "Gümüşhane",
+    "nuts2": "TR90",
+    "population": 169701,
+    "age_mean": 38.0,
+    "age_std": 11.5,
+    "youth_share": 0.28,
+    "female_pct": 0.501,
+    "income_mult": 0.72,
+    "income_p20": 6500,
+    "income_p50": 12200,
+    "income_p80": 30200,
+    "unemployment_rate": 0.098,
+    "education_dist": {
+      "primary_or_less": 0.23,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.17
+    },
+    "children_mean": 1.8,
+    "home_ownership_dist": {
+      "owner": 0.68,
+      "renter": 0.2,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.321,
+      "industry": 0.151,
+      "construction": 0.057,
+      "services": 0.472
+    },
+    "informal_employment_rate": 0.44,
+    "debt_to_income_ratio": 1.2,
+    "estimated": true
+  },
+  {
+    "plate": 30,
+    "name": "Hakkari",
+    "nuts2": "TRB2",
+    "population": 282948,
+    "age_mean": 24.0,
+    "age_std": 10.0,
+    "youth_share": 0.46,
+    "female_pct": 0.496,
+    "income_mult": 0.46,
+    "income_p20": 4100,
+    "income_p50": 7800,
+    "income_p80": 19300,
+    "unemployment_rate": 0.245,
+    "education_dist": {
+      "primary_or_less": 0.31,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.09
+    },
+    "children_mean": 4.2,
+    "home_ownership_dist": {
+      "owner": 0.72,
+      "renter": 0.13,
+      "with_family": 0.15
+    },
+    "sector_weights": {
+      "agriculture": 0.38,
+      "industry": 0.12,
+      "construction": 0.06,
+      "services": 0.44
+    },
+    "informal_employment_rate": 0.65,
+    "debt_to_income_ratio": 0.7,
+    "estimated": true
+  },
+  {
+    "plate": 31,
+    "name": "Hatay",
+    "nuts2": "TR63",
+    "population": 1644994,
+    "age_mean": 33.5,
+    "age_std": 11.5,
+    "youth_share": 0.35,
+    "female_pct": 0.498,
+    "income_mult": 0.86,
+    "income_p20": 7700,
+    "income_p50": 14600,
+    "income_p80": 36100,
+    "unemployment_rate": 0.135,
+    "education_dist": {
+      "primary_or_less": 0.23,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.17
+    },
+    "children_mean": 2.2,
+    "home_ownership_dist": {
+      "owner": 0.6,
+      "renter": 0.27,
+      "with_family": 0.13
+    },
+    "sector_weights": {
+      "agriculture": 0.2,
+      "industry": 0.2,
+      "construction": 0.07,
+      "services": 0.53
+    },
+    "informal_employment_rate": 0.42,
+    "debt_to_income_ratio": 1.3,
+    "estimated": true
+  },
+  {
+    "plate": 32,
+    "name": "Isparta",
+    "nuts2": "TR61",
+    "population": 432395,
+    "age_mean": 38.5,
+    "age_std": 11.5,
+    "youth_share": 0.27,
+    "female_pct": 0.501,
+    "income_mult": 1.04,
+    "income_p20": 9400,
+    "income_p50": 17700,
+    "income_p80": 43700,
+    "unemployment_rate": 0.105,
+    "education_dist": {
+      "primary_or_less": 0.14,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.26
+    },
+    "children_mean": 1.7,
+    "home_ownership_dist": {
+      "owner": 0.57,
+      "renter": 0.31,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.196,
+      "industry": 0.176,
+      "construction": 0.059,
+      "services": 0.569
+    },
+    "informal_employment_rate": 0.32,
+    "debt_to_income_ratio": 1.8,
+    "estimated": true
+  },
+  {
+    "plate": 33,
+    "name": "Mersin",
+    "nuts2": "TR62",
+    "population": 1892027,
+    "age_mean": 35.0,
+    "age_std": 11.5,
+    "youth_share": 0.34,
+    "female_pct": 0.499,
+    "income_mult": 0.94,
+    "income_p20": 8500,
+    "income_p50": 16000,
+    "income_p80": 39500,
+    "unemployment_rate": 0.125,
+    "education_dist": {
+      "primary_or_less": 0.2,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.2
+    },
+    "children_mean": 2.0,
+    "home_ownership_dist": {
+      "owner": 0.58,
+      "renter": 0.3,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.158,
+      "industry": 0.218,
+      "construction": 0.069,
+      "services": 0.554
+    },
+    "informal_employment_rate": 0.38,
+    "debt_to_income_ratio": 1.5,
+    "estimated": true
+  },
+  {
+    "plate": 34,
+    "name": "İstanbul",
+    "nuts2": "TR10",
+    "population": 15840900,
+    "age_mean": 33.2,
+    "age_std": 11.0,
+    "youth_share": 0.32,
+    "female_pct": 0.499,
+    "income_mult": 1.38,
+    "income_p20": 12400,
+    "income_p50": 23500,
+    "income_p80": 58000,
+    "unemployment_rate": 0.087,
+    "education_dist": {
+      "primary_or_less": 0.08,
+      "middle_school": 0.22,
+      "high_school": 0.32,
+      "university": 0.38
+    },
+    "children_mean": 1.3,
+    "home_ownership_dist": {
+      "owner": 0.4,
+      "renter": 0.5,
+      "with_family": 0.1
+    },
+    "sector_weights": {
+      "agriculture": 0.01,
+      "industry": 0.23,
+      "construction": 0.07,
+      "services": 0.69
+    },
+    "informal_employment_rate": 0.19,
+    "debt_to_income_ratio": 2.5,
+    "estimated": false
+  },
+  {
+    "plate": 35,
+    "name": "İzmir",
+    "nuts2": "TR31",
+    "population": 4489165,
+    "age_mean": 37.8,
+    "age_std": 11.0,
+    "youth_share": 0.3,
+    "female_pct": 0.501,
+    "income_mult": 1.24,
+    "income_p20": 11200,
+    "income_p50": 21100,
+    "income_p80": 52100,
+    "unemployment_rate": 0.091,
+    "education_dist": {
+      "primary_or_less": 0.08,
+      "middle_school": 0.22,
+      "high_school": 0.35,
+      "university": 0.35
+    },
+    "children_mean": 1.4,
+    "home_ownership_dist": {
+      "owner": 0.45,
+      "renter": 0.44,
+      "with_family": 0.11
+    },
+    "sector_weights": {
+      "agriculture": 0.05,
+      "industry": 0.22,
+      "construction": 0.07,
+      "services": 0.66
+    },
+    "informal_employment_rate": 0.22,
+    "debt_to_income_ratio": 2.2,
+    "estimated": false
+  },
+  {
+    "plate": 36,
+    "name": "Kars",
+    "nuts2": "TRA2",
+    "population": 285704,
+    "age_mean": 28.0,
+    "age_std": 10.5,
+    "youth_share": 0.4,
+    "female_pct": 0.497,
+    "income_mult": 0.55,
+    "income_p20": 5000,
+    "income_p50": 9400,
+    "income_p80": 23100,
+    "unemployment_rate": 0.192,
+    "education_dist": {
+      "primary_or_less": 0.3,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.1
+    },
+    "children_mean": 3.0,
+    "home_ownership_dist": {
+      "owner": 0.72,
+      "renter": 0.14,
+      "with_family": 0.14
+    },
+    "sector_weights": {
+      "agriculture": 0.408,
+      "industry": 0.122,
+      "construction": 0.061,
+      "services": 0.408
+    },
+    "informal_employment_rate": 0.6,
+    "debt_to_income_ratio": 0.8,
+    "estimated": true
+  },
+  {
+    "plate": 37,
+    "name": "Kastamonu",
+    "nuts2": "TR82",
+    "population": 362461,
+    "age_mean": 44.1,
+    "age_std": 11.0,
+    "youth_share": 0.2,
+    "female_pct": 0.5,
+    "income_mult": 0.74,
+    "income_p20": 6700,
+    "income_p50": 12600,
+    "income_p80": 31100,
+    "unemployment_rate": 0.105,
+    "education_dist": {
+      "primary_or_less": 0.26,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.14
+    },
+    "children_mean": 1.9,
+    "home_ownership_dist": {
+      "owner": 0.7,
+      "renter": 0.18,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.314,
+      "industry": 0.176,
+      "construction": 0.059,
+      "services": 0.451
+    },
+    "informal_employment_rate": 0.47,
+    "debt_to_income_ratio": 1.1,
+    "estimated": true
+  },
+  {
+    "plate": 38,
+    "name": "Kayseri",
+    "nuts2": "TR72",
+    "population": 1441523,
+    "age_mean": 36.0,
+    "age_std": 12.0,
+    "youth_share": 0.31,
+    "female_pct": 0.499,
+    "income_mult": 0.92,
+    "income_p20": 8300,
+    "income_p50": 15600,
+    "income_p80": 38600,
+    "unemployment_rate": 0.108,
+    "education_dist": {
+      "primary_or_less": 0.2,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.2
+    },
+    "children_mean": 1.9,
+    "home_ownership_dist": {
+      "owner": 0.64,
+      "renter": 0.24,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.14,
+      "industry": 0.3,
+      "construction": 0.06,
+      "services": 0.5
+    },
+    "informal_employment_rate": 0.4,
+    "debt_to_income_ratio": 1.4,
+    "estimated": true
+  },
+  {
+    "plate": 39,
+    "name": "Kırklareli",
+    "nuts2": "TR21",
+    "population": 372910,
+    "age_mean": 37.5,
+    "age_std": 11.5,
+    "youth_share": 0.29,
+    "female_pct": 0.5,
+    "income_mult": 1.16,
+    "income_p20": 10400,
+    "income_p50": 19700,
+    "income_p80": 48700,
+    "unemployment_rate": 0.095,
+    "education_dist": {
+      "primary_or_less": 0.12,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.28
+    },
+    "children_mean": 1.6,
+    "home_ownership_dist": {
+      "owner": 0.55,
+      "renter": 0.35,
+      "with_family": 0.1
+    },
+    "sector_weights": {
+      "agriculture": 0.14,
+      "industry": 0.3,
+      "construction": 0.06,
+      "services": 0.5
+    },
+    "informal_employment_rate": 0.3,
+    "debt_to_income_ratio": 2.0,
+    "estimated": true
+  },
+  {
+    "plate": 40,
+    "name": "Kırşehir",
+    "nuts2": "TR71",
+    "population": 235258,
+    "age_mean": 37.5,
+    "age_std": 12.0,
+    "youth_share": 0.3,
+    "female_pct": 0.499,
+    "income_mult": 0.8,
+    "income_p20": 7200,
+    "income_p50": 13600,
+    "income_p80": 33600,
+    "unemployment_rate": 0.118,
+    "education_dist": {
+      "primary_or_less": 0.23,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.17
+    },
+    "children_mean": 2.0,
+    "home_ownership_dist": {
+      "owner": 0.66,
+      "renter": 0.22,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.3,
+      "industry": 0.18,
+      "construction": 0.06,
+      "services": 0.46
+    },
+    "informal_employment_rate": 0.42,
+    "debt_to_income_ratio": 1.3,
+    "estimated": true
+  },
+  {
+    "plate": 41,
+    "name": "Kocaeli",
+    "nuts2": "TR42",
+    "population": 2026941,
+    "age_mean": 36.5,
+    "age_std": 11.0,
+    "youth_share": 0.31,
+    "female_pct": 0.499,
+    "income_mult": 1.22,
+    "income_p20": 11000,
+    "income_p50": 20700,
+    "income_p80": 51200,
+    "unemployment_rate": 0.065,
+    "education_dist": {
+      "primary_or_less": 0.14,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.26
+    },
+    "children_mean": 1.6,
+    "home_ownership_dist": {
+      "owner": 0.53,
+      "renter": 0.36,
+      "with_family": 0.11
+    },
+    "sector_weights": {
+      "agriculture": 0.03,
+      "industry": 0.46,
+      "construction": 0.07,
+      "services": 0.44
+    },
+    "informal_employment_rate": 0.18,
+    "debt_to_income_ratio": 2.2,
+    "estimated": false
+  },
+  {
+    "plate": 42,
+    "name": "Konya",
+    "nuts2": "TR52",
+    "population": 2320608,
+    "age_mean": 35.5,
+    "age_std": 11.5,
+    "youth_share": 0.32,
+    "female_pct": 0.5,
+    "income_mult": 0.9,
+    "income_p20": 8100,
+    "income_p50": 15300,
+    "income_p80": 37800,
+    "unemployment_rate": 0.108,
+    "education_dist": {
+      "primary_or_less": 0.2,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.2
+    },
+    "children_mean": 1.9,
+    "home_ownership_dist": {
+      "owner": 0.63,
+      "renter": 0.25,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.22,
+      "industry": 0.24,
+      "construction": 0.06,
+      "services": 0.48
+    },
+    "informal_employment_rate": 0.36,
+    "debt_to_income_ratio": 1.5,
+    "estimated": true
+  },
+  {
+    "plate": 43,
+    "name": "Kütahya",
+    "nuts2": "TR33",
+    "population": 566706,
+    "age_mean": 38.5,
+    "age_std": 11.5,
+    "youth_share": 0.29,
+    "female_pct": 0.5,
+    "income_mult": 0.93,
+    "income_p20": 8400,
+    "income_p50": 15800,
+    "income_p80": 39100,
+    "unemployment_rate": 0.102,
+    "education_dist": {
+      "primary_or_less": 0.21,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.19
+    },
+    "children_mean": 1.8,
+    "home_ownership_dist": {
+      "owner": 0.62,
+      "renter": 0.26,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.24,
+      "industry": 0.28,
+      "construction": 0.06,
+      "services": 0.42
+    },
+    "informal_employment_rate": 0.38,
+    "debt_to_income_ratio": 1.5,
+    "estimated": true
+  },
+  {
+    "plate": 44,
+    "name": "Malatya",
+    "nuts2": "TRB1",
+    "population": 804499,
+    "age_mean": 34.5,
+    "age_std": 12.0,
+    "youth_share": 0.34,
+    "female_pct": 0.498,
+    "income_mult": 0.74,
+    "income_p20": 6700,
+    "income_p50": 12600,
+    "income_p80": 31100,
+    "unemployment_rate": 0.138,
+    "education_dist": {
+      "primary_or_less": 0.25,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.15
+    },
+    "children_mean": 2.3,
+    "home_ownership_dist": {
+      "owner": 0.68,
+      "renter": 0.18,
+      "with_family": 0.14
+    },
+    "sector_weights": {
+      "agriculture": 0.286,
+      "industry": 0.184,
+      "construction": 0.071,
+      "services": 0.459
+    },
+    "informal_employment_rate": 0.5,
+    "debt_to_income_ratio": 1.0,
+    "estimated": true
+  },
+  {
+    "plate": 45,
+    "name": "Manisa",
+    "nuts2": "TR33",
+    "population": 1468279,
+    "age_mean": 38.5,
+    "age_std": 11.5,
+    "youth_share": 0.29,
+    "female_pct": 0.5,
+    "income_mult": 0.98,
+    "income_p20": 8800,
+    "income_p50": 16700,
+    "income_p80": 41200,
+    "unemployment_rate": 0.102,
+    "education_dist": {
+      "primary_or_less": 0.21,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.19
+    },
+    "children_mean": 1.8,
+    "home_ownership_dist": {
+      "owner": 0.62,
+      "renter": 0.26,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.22,
+      "industry": 0.3,
+      "construction": 0.06,
+      "services": 0.42
+    },
+    "informal_employment_rate": 0.38,
+    "debt_to_income_ratio": 1.5,
+    "estimated": true
+  },
+  {
+    "plate": 46,
+    "name": "Kahramanmaraş",
+    "nuts2": "TR63",
+    "population": 1177436,
+    "age_mean": 32.0,
+    "age_std": 11.5,
+    "youth_share": 0.37,
+    "female_pct": 0.498,
+    "income_mult": 0.82,
+    "income_p20": 7400,
+    "income_p50": 13900,
+    "income_p80": 34400,
+    "unemployment_rate": 0.142,
+    "education_dist": {
+      "primary_or_less": 0.23,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.17
+    },
+    "children_mean": 2.5,
+    "home_ownership_dist": {
+      "owner": 0.6,
+      "renter": 0.27,
+      "with_family": 0.13
+    },
+    "sector_weights": {
+      "agriculture": 0.24,
+      "industry": 0.22,
+      "construction": 0.07,
+      "services": 0.47
+    },
+    "informal_employment_rate": 0.42,
+    "debt_to_income_ratio": 1.3,
+    "estimated": true
+  },
+  {
+    "plate": 47,
+    "name": "Mardin",
+    "nuts2": "TRC2",
+    "population": 863657,
+    "age_mean": 26.0,
+    "age_std": 10.5,
+    "youth_share": 0.44,
+    "female_pct": 0.496,
+    "income_mult": 0.58,
+    "income_p20": 5200,
+    "income_p50": 9900,
+    "income_p80": 24400,
+    "unemployment_rate": 0.228,
+    "education_dist": {
+      "primary_or_less": 0.3,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.1
+    },
+    "children_mean": 3.8,
+    "home_ownership_dist": {
+      "owner": 0.65,
+      "renter": 0.19,
+      "with_family": 0.16
+    },
+    "sector_weights": {
+      "agriculture": 0.333,
+      "industry": 0.137,
+      "construction": 0.069,
+      "services": 0.461
+    },
+    "informal_employment_rate": 0.6,
+    "debt_to_income_ratio": 0.8,
+    "estimated": true
+  },
+  {
+    "plate": 48,
+    "name": "Muğla",
+    "nuts2": "TR32",
+    "population": 1076293,
+    "age_mean": 40.5,
+    "age_std": 11.5,
+    "youth_share": 0.28,
+    "female_pct": 0.501,
+    "income_mult": 1.12,
+    "income_p20": 10100,
+    "income_p50": 19000,
+    "income_p80": 47000,
+    "unemployment_rate": 0.098,
+    "education_dist": {
+      "primary_or_less": 0.16,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.24
+    },
+    "children_mean": 1.6,
+    "home_ownership_dist": {
+      "owner": 0.58,
+      "renter": 0.31,
+      "with_family": 0.11
+    },
+    "sector_weights": {
+      "agriculture": 0.096,
+      "industry": 0.192,
+      "construction": 0.058,
+      "services": 0.654
+    },
+    "informal_employment_rate": 0.28,
+    "debt_to_income_ratio": 1.8,
+    "estimated": true
+  },
+  {
+    "plate": 49,
+    "name": "Muş",
+    "nuts2": "TRB2",
+    "population": 407764,
+    "age_mean": 25.0,
+    "age_std": 10.0,
+    "youth_share": 0.46,
+    "female_pct": 0.496,
+    "income_mult": 0.48,
+    "income_p20": 4300,
+    "income_p50": 8200,
+    "income_p80": 20200,
+    "unemployment_rate": 0.232,
+    "education_dist": {
+      "primary_or_less": 0.31,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.09
+    },
+    "children_mean": 3.9,
+    "home_ownership_dist": {
+      "owner": 0.72,
+      "renter": 0.13,
+      "with_family": 0.15
+    },
+    "sector_weights": {
+      "agriculture": 0.404,
+      "industry": 0.115,
+      "construction": 0.058,
+      "services": 0.423
+    },
+    "informal_employment_rate": 0.62,
+    "debt_to_income_ratio": 0.7,
+    "estimated": true
+  },
+  {
+    "plate": 50,
+    "name": "Nevşehir",
+    "nuts2": "TR71",
+    "population": 306638,
+    "age_mean": 37.0,
+    "age_std": 12.0,
+    "youth_share": 0.3,
+    "female_pct": 0.499,
+    "income_mult": 0.84,
+    "income_p20": 7600,
+    "income_p50": 14300,
+    "income_p80": 35300,
+    "unemployment_rate": 0.118,
+    "education_dist": {
+      "primary_or_less": 0.23,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.17
+    },
+    "children_mean": 2.0,
+    "home_ownership_dist": {
+      "owner": 0.66,
+      "renter": 0.22,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.212,
+      "industry": 0.192,
+      "construction": 0.058,
+      "services": 0.538
+    },
+    "informal_employment_rate": 0.42,
+    "debt_to_income_ratio": 1.3,
+    "estimated": true
+  },
+  {
+    "plate": 51,
+    "name": "Niğde",
+    "nuts2": "TR71",
+    "population": 376476,
+    "age_mean": 37.0,
+    "age_std": 12.0,
+    "youth_share": 0.3,
+    "female_pct": 0.499,
+    "income_mult": 0.8,
+    "income_p20": 7200,
+    "income_p50": 13600,
+    "income_p80": 33600,
+    "unemployment_rate": 0.118,
+    "education_dist": {
+      "primary_or_less": 0.23,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.17
+    },
+    "children_mean": 2.0,
+    "home_ownership_dist": {
+      "owner": 0.66,
+      "renter": 0.22,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.26,
+      "industry": 0.2,
+      "construction": 0.06,
+      "services": 0.48
+    },
+    "informal_employment_rate": 0.42,
+    "debt_to_income_ratio": 1.3,
+    "estimated": true
+  },
+  {
+    "plate": 52,
+    "name": "Ordu",
+    "nuts2": "TR90",
+    "population": 733611,
+    "age_mean": 39.5,
+    "age_std": 11.5,
+    "youth_share": 0.26,
+    "female_pct": 0.501,
+    "income_mult": 0.81,
+    "income_p20": 7300,
+    "income_p50": 13800,
+    "income_p80": 34000,
+    "unemployment_rate": 0.098,
+    "education_dist": {
+      "primary_or_less": 0.23,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.17
+    },
+    "children_mean": 1.8,
+    "home_ownership_dist": {
+      "owner": 0.68,
+      "renter": 0.2,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.308,
+      "industry": 0.154,
+      "construction": 0.058,
+      "services": 0.481
+    },
+    "informal_employment_rate": 0.44,
+    "debt_to_income_ratio": 1.2,
+    "estimated": true
+  },
+  {
+    "plate": 53,
+    "name": "Rize",
+    "nuts2": "TR90",
+    "population": 341492,
+    "age_mean": 40.5,
+    "age_std": 11.5,
+    "youth_share": 0.24,
+    "female_pct": 0.501,
+    "income_mult": 0.88,
+    "income_p20": 7900,
+    "income_p50": 15000,
+    "income_p80": 37000,
+    "unemployment_rate": 0.098,
+    "education_dist": {
+      "primary_or_less": 0.23,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.17
+    },
+    "children_mean": 1.8,
+    "home_ownership_dist": {
+      "owner": 0.68,
+      "renter": 0.2,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.255,
+      "industry": 0.157,
+      "construction": 0.059,
+      "services": 0.529
+    },
+    "informal_employment_rate": 0.44,
+    "debt_to_income_ratio": 1.2,
+    "estimated": true
+  },
+  {
+    "plate": 54,
+    "name": "Sakarya",
+    "nuts2": "TR42",
+    "population": 1085914,
+    "age_mean": 36.5,
+    "age_std": 11.0,
+    "youth_share": 0.31,
+    "female_pct": 0.499,
+    "income_mult": 1.14,
+    "income_p20": 10300,
+    "income_p50": 19400,
+    "income_p80": 47900,
+    "unemployment_rate": 0.068,
+    "education_dist": {
+      "primary_or_less": 0.14,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.26
+    },
+    "children_mean": 1.6,
+    "home_ownership_dist": {
+      "owner": 0.53,
+      "renter": 0.36,
+      "with_family": 0.11
+    },
+    "sector_weights": {
+      "agriculture": 0.079,
+      "industry": 0.376,
+      "construction": 0.069,
+      "services": 0.475
+    },
+    "informal_employment_rate": 0.22,
+    "debt_to_income_ratio": 2.1,
+    "estimated": false
+  },
+  {
+    "plate": 55,
+    "name": "Samsun",
+    "nuts2": "TR83",
+    "population": 1348542,
+    "age_mean": 37.0,
+    "age_std": 12.0,
+    "youth_share": 0.3,
+    "female_pct": 0.5,
+    "income_mult": 0.86,
+    "income_p20": 7700,
+    "income_p50": 14600,
+    "income_p80": 36100,
+    "unemployment_rate": 0.11,
+    "education_dist": {
+      "primary_or_less": 0.23,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.17
+    },
+    "children_mean": 1.9,
+    "home_ownership_dist": {
+      "owner": 0.66,
+      "renter": 0.22,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.22,
+      "industry": 0.2,
+      "construction": 0.06,
+      "services": 0.52
+    },
+    "informal_employment_rate": 0.43,
+    "debt_to_income_ratio": 1.2,
+    "estimated": true
+  },
+  {
+    "plate": 56,
+    "name": "Siirt",
+    "nuts2": "TRC3",
+    "population": 345547,
+    "age_mean": 24.5,
+    "age_std": 10.0,
+    "youth_share": 0.46,
+    "female_pct": 0.495,
+    "income_mult": 0.52,
+    "income_p20": 4700,
+    "income_p50": 8800,
+    "income_p80": 21800,
+    "unemployment_rate": 0.242,
+    "education_dist": {
+      "primary_or_less": 0.31,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.09
+    },
+    "children_mean": 4.0,
+    "home_ownership_dist": {
+      "owner": 0.63,
+      "renter": 0.2,
+      "with_family": 0.17
+    },
+    "sector_weights": {
+      "agriculture": 0.28,
+      "industry": 0.14,
+      "construction": 0.07,
+      "services": 0.51
+    },
+    "informal_employment_rate": 0.62,
+    "debt_to_income_ratio": 0.7,
+    "estimated": true
+  },
+  {
+    "plate": 57,
+    "name": "Sinop",
+    "nuts2": "TR82",
+    "population": 204133,
+    "age_mean": 44.3,
+    "age_std": 11.0,
+    "youth_share": 0.19,
+    "female_pct": 0.5,
+    "income_mult": 0.72,
+    "income_p20": 6500,
+    "income_p50": 12200,
+    "income_p80": 30200,
+    "unemployment_rate": 0.105,
+    "education_dist": {
+      "primary_or_less": 0.26,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.14
+    },
+    "children_mean": 1.9,
+    "home_ownership_dist": {
+      "owner": 0.7,
+      "renter": 0.18,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.314,
+      "industry": 0.176,
+      "construction": 0.059,
+      "services": 0.451
+    },
+    "informal_employment_rate": 0.48,
+    "debt_to_income_ratio": 1.1,
+    "estimated": true
+  },
+  {
+    "plate": 58,
+    "name": "Sivas",
+    "nuts2": "TR72",
+    "population": 596390,
+    "age_mean": 37.5,
+    "age_std": 12.0,
+    "youth_share": 0.31,
+    "female_pct": 0.499,
+    "income_mult": 0.82,
+    "income_p20": 7400,
+    "income_p50": 13900,
+    "income_p80": 34400,
+    "unemployment_rate": 0.112,
+    "education_dist": {
+      "primary_or_less": 0.2,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.2
+    },
+    "children_mean": 1.9,
+    "home_ownership_dist": {
+      "owner": 0.64,
+      "renter": 0.24,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.28,
+      "industry": 0.2,
+      "construction": 0.06,
+      "services": 0.46
+    },
+    "informal_employment_rate": 0.4,
+    "debt_to_income_ratio": 1.4,
+    "estimated": true
+  },
+  {
+    "plate": 59,
+    "name": "Tekirdağ",
+    "nuts2": "TR21",
+    "population": 1098879,
+    "age_mean": 37.5,
+    "age_std": 11.5,
+    "youth_share": 0.29,
+    "female_pct": 0.5,
+    "income_mult": 1.22,
+    "income_p20": 11000,
+    "income_p50": 20700,
+    "income_p80": 51200,
+    "unemployment_rate": 0.095,
+    "education_dist": {
+      "primary_or_less": 0.12,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.28
+    },
+    "children_mean": 1.6,
+    "home_ownership_dist": {
+      "owner": 0.55,
+      "renter": 0.35,
+      "with_family": 0.1
+    },
+    "sector_weights": {
+      "agriculture": 0.1,
+      "industry": 0.36,
+      "construction": 0.06,
+      "services": 0.48
+    },
+    "informal_employment_rate": 0.22,
+    "debt_to_income_ratio": 2.0,
+    "estimated": true
+  },
+  {
+    "plate": 60,
+    "name": "Tokat",
+    "nuts2": "TR83",
+    "population": 594266,
+    "age_mean": 38.0,
+    "age_std": 12.0,
+    "youth_share": 0.3,
+    "female_pct": 0.5,
+    "income_mult": 0.82,
+    "income_p20": 7400,
+    "income_p50": 13900,
+    "income_p80": 34400,
+    "unemployment_rate": 0.112,
+    "education_dist": {
+      "primary_or_less": 0.23,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.17
+    },
+    "children_mean": 1.9,
+    "home_ownership_dist": {
+      "owner": 0.66,
+      "renter": 0.22,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.3,
+      "industry": 0.18,
+      "construction": 0.06,
+      "services": 0.46
+    },
+    "informal_employment_rate": 0.43,
+    "debt_to_income_ratio": 1.2,
+    "estimated": true
+  },
+  {
+    "plate": 61,
+    "name": "Trabzon",
+    "nuts2": "TR90",
+    "population": 804165,
+    "age_mean": 40.2,
+    "age_std": 11.5,
+    "youth_share": 0.25,
+    "female_pct": 0.501,
+    "income_mult": 0.88,
+    "income_p20": 7900,
+    "income_p50": 15000,
+    "income_p80": 37000,
+    "unemployment_rate": 0.098,
+    "education_dist": {
+      "primary_or_less": 0.23,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.17
+    },
+    "children_mean": 1.8,
+    "home_ownership_dist": {
+      "owner": 0.68,
+      "renter": 0.2,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.216,
+      "industry": 0.157,
+      "construction": 0.059,
+      "services": 0.569
+    },
+    "informal_employment_rate": 0.44,
+    "debt_to_income_ratio": 1.2,
+    "estimated": true
+  },
+  {
+    "plate": 62,
+    "name": "Tunceli",
+    "nuts2": "TRB1",
+    "population": 86612,
+    "age_mean": 37.0,
+    "age_std": 12.0,
+    "youth_share": 0.28,
+    "female_pct": 0.498,
+    "income_mult": 0.68,
+    "income_p20": 6100,
+    "income_p50": 11600,
+    "income_p80": 28600,
+    "unemployment_rate": 0.125,
+    "education_dist": {
+      "primary_or_less": 0.18,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.22
+    },
+    "children_mean": 1.8,
+    "home_ownership_dist": {
+      "owner": 0.68,
+      "renter": 0.18,
+      "with_family": 0.14
+    },
+    "sector_weights": {
+      "agriculture": 0.239,
+      "industry": 0.196,
+      "construction": 0.076,
+      "services": 0.489
+    },
+    "informal_employment_rate": 0.5,
+    "debt_to_income_ratio": 1.0,
+    "estimated": true
+  },
+  {
+    "plate": 63,
+    "name": "Şanlıurfa",
+    "nuts2": "TRC2",
+    "population": 2143994,
+    "age_mean": 25.5,
+    "age_std": 10.5,
+    "youth_share": 0.46,
+    "female_pct": 0.496,
+    "income_mult": 0.6,
+    "income_p20": 5400,
+    "income_p50": 10200,
+    "income_p80": 25200,
+    "unemployment_rate": 0.225,
+    "education_dist": {
+      "primary_or_less": 0.3,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.1
+    },
+    "children_mean": 4.2,
+    "home_ownership_dist": {
+      "owner": 0.65,
+      "renter": 0.19,
+      "with_family": 0.16
+    },
+    "sector_weights": {
+      "agriculture": 0.32,
+      "industry": 0.14,
+      "construction": 0.07,
+      "services": 0.47
+    },
+    "informal_employment_rate": 0.6,
+    "debt_to_income_ratio": 0.8,
+    "estimated": true
+  },
+  {
+    "plate": 64,
+    "name": "Uşak",
+    "nuts2": "TR33",
+    "population": 375792,
+    "age_mean": 38.5,
+    "age_std": 11.5,
+    "youth_share": 0.29,
+    "female_pct": 0.5,
+    "income_mult": 0.93,
+    "income_p20": 8400,
+    "income_p50": 15800,
+    "income_p80": 39100,
+    "unemployment_rate": 0.102,
+    "education_dist": {
+      "primary_or_less": 0.21,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.19
+    },
+    "children_mean": 1.8,
+    "home_ownership_dist": {
+      "owner": 0.62,
+      "renter": 0.26,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.2,
+      "industry": 0.3,
+      "construction": 0.06,
+      "services": 0.44
+    },
+    "informal_employment_rate": 0.38,
+    "debt_to_income_ratio": 1.5,
+    "estimated": true
+  },
+  {
+    "plate": 65,
+    "name": "Van",
+    "nuts2": "TRB2",
+    "population": 1170234,
+    "age_mean": 25.5,
+    "age_std": 10.0,
+    "youth_share": 0.45,
+    "female_pct": 0.496,
+    "income_mult": 0.5,
+    "income_p20": 4500,
+    "income_p50": 8500,
+    "income_p80": 21000,
+    "unemployment_rate": 0.225,
+    "education_dist": {
+      "primary_or_less": 0.31,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.09
+    },
+    "children_mean": 3.8,
+    "home_ownership_dist": {
+      "owner": 0.72,
+      "renter": 0.13,
+      "with_family": 0.15
+    },
+    "sector_weights": {
+      "agriculture": 0.326,
+      "industry": 0.13,
+      "construction": 0.065,
+      "services": 0.478
+    },
+    "informal_employment_rate": 0.62,
+    "debt_to_income_ratio": 0.7,
+    "estimated": true
+  },
+  {
+    "plate": 66,
+    "name": "Yozgat",
+    "nuts2": "TR72",
+    "population": 398925,
+    "age_mean": 37.0,
+    "age_std": 12.0,
+    "youth_share": 0.31,
+    "female_pct": 0.499,
+    "income_mult": 0.76,
+    "income_p20": 6800,
+    "income_p50": 12900,
+    "income_p80": 31900,
+    "unemployment_rate": 0.112,
+    "education_dist": {
+      "primary_or_less": 0.2,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.2
+    },
+    "children_mean": 1.9,
+    "home_ownership_dist": {
+      "owner": 0.64,
+      "renter": 0.24,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.34,
+      "industry": 0.16,
+      "construction": 0.06,
+      "services": 0.44
+    },
+    "informal_employment_rate": 0.4,
+    "debt_to_income_ratio": 1.4,
+    "estimated": true
+  },
+  {
+    "plate": 67,
+    "name": "Zonguldak",
+    "nuts2": "TR81",
+    "population": 595462,
+    "age_mean": 39.5,
+    "age_std": 11.5,
+    "youth_share": 0.26,
+    "female_pct": 0.5,
+    "income_mult": 0.9,
+    "income_p20": 8100,
+    "income_p50": 15300,
+    "income_p80": 37800,
+    "unemployment_rate": 0.108,
+    "education_dist": {
+      "primary_or_less": 0.22,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.18
+    },
+    "children_mean": 1.7,
+    "home_ownership_dist": {
+      "owner": 0.65,
+      "renter": 0.24,
+      "with_family": 0.11
+    },
+    "sector_weights": {
+      "agriculture": 0.12,
+      "industry": 0.32,
+      "construction": 0.06,
+      "services": 0.5
+    },
+    "informal_employment_rate": 0.35,
+    "debt_to_income_ratio": 1.4,
+    "estimated": true
+  },
+  {
+    "plate": 68,
+    "name": "Aksaray",
+    "nuts2": "TR71",
+    "population": 433920,
+    "age_mean": 37.0,
+    "age_std": 12.0,
+    "youth_share": 0.3,
+    "female_pct": 0.499,
+    "income_mult": 0.8,
+    "income_p20": 7200,
+    "income_p50": 13600,
+    "income_p80": 33600,
+    "unemployment_rate": 0.118,
+    "education_dist": {
+      "primary_or_less": 0.23,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.17
+    },
+    "children_mean": 2.2,
+    "home_ownership_dist": {
+      "owner": 0.66,
+      "renter": 0.22,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.3,
+      "industry": 0.18,
+      "construction": 0.06,
+      "services": 0.46
+    },
+    "informal_employment_rate": 0.42,
+    "debt_to_income_ratio": 1.3,
+    "estimated": true
+  },
+  {
+    "plate": 69,
+    "name": "Bayburt",
+    "nuts2": "TRA1",
+    "population": 83676,
+    "age_mean": 34.0,
+    "age_std": 11.5,
+    "youth_share": 0.34,
+    "female_pct": 0.498,
+    "income_mult": 0.64,
+    "income_p20": 5800,
+    "income_p50": 10900,
+    "income_p80": 26900,
+    "unemployment_rate": 0.148,
+    "education_dist": {
+      "primary_or_less": 0.27,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.13
+    },
+    "children_mean": 2.6,
+    "home_ownership_dist": {
+      "owner": 0.7,
+      "renter": 0.16,
+      "with_family": 0.14
+    },
+    "sector_weights": {
+      "agriculture": 0.367,
+      "industry": 0.153,
+      "construction": 0.061,
+      "services": 0.418
+    },
+    "informal_employment_rate": 0.54,
+    "debt_to_income_ratio": 0.9,
+    "estimated": true
+  },
+  {
+    "plate": 70,
+    "name": "Karaman",
+    "nuts2": "TR52",
+    "population": 254136,
+    "age_mean": 36.0,
+    "age_std": 11.5,
+    "youth_share": 0.32,
+    "female_pct": 0.5,
+    "income_mult": 0.89,
+    "income_p20": 8000,
+    "income_p50": 15100,
+    "income_p80": 37400,
+    "unemployment_rate": 0.11,
+    "education_dist": {
+      "primary_or_less": 0.2,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.2
+    },
+    "children_mean": 1.9,
+    "home_ownership_dist": {
+      "owner": 0.63,
+      "renter": 0.25,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.24,
+      "industry": 0.22,
+      "construction": 0.06,
+      "services": 0.48
+    },
+    "informal_employment_rate": 0.36,
+    "debt_to_income_ratio": 1.5,
+    "estimated": true
+  },
+  {
+    "plate": 71,
+    "name": "Kırıkkale",
+    "nuts2": "TR71",
+    "population": 271767,
+    "age_mean": 37.0,
+    "age_std": 12.0,
+    "youth_share": 0.3,
+    "female_pct": 0.499,
+    "income_mult": 0.85,
+    "income_p20": 7600,
+    "income_p50": 14400,
+    "income_p80": 35700,
+    "unemployment_rate": 0.118,
+    "education_dist": {
+      "primary_or_less": 0.23,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.17
+    },
+    "children_mean": 2.0,
+    "home_ownership_dist": {
+      "owner": 0.66,
+      "renter": 0.22,
+      "with_family": 0.12
+    },
+    "sector_weights": {
+      "agriculture": 0.16,
+      "industry": 0.24,
+      "construction": 0.06,
+      "services": 0.54
+    },
+    "informal_employment_rate": 0.42,
+    "debt_to_income_ratio": 1.3,
+    "estimated": true
+  },
+  {
+    "plate": 72,
+    "name": "Batman",
+    "nuts2": "TRC3",
+    "population": 645267,
+    "age_mean": 24.0,
+    "age_std": 10.0,
+    "youth_share": 0.46,
+    "female_pct": 0.495,
+    "income_mult": 0.54,
+    "income_p20": 4900,
+    "income_p50": 9200,
+    "income_p80": 22700,
+    "unemployment_rate": 0.24,
+    "education_dist": {
+      "primary_or_less": 0.31,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.09
+    },
+    "children_mean": 4.0,
+    "home_ownership_dist": {
+      "owner": 0.63,
+      "renter": 0.2,
+      "with_family": 0.17
+    },
+    "sector_weights": {
+      "agriculture": 0.28,
+      "industry": 0.14,
+      "construction": 0.07,
+      "services": 0.51
+    },
+    "informal_employment_rate": 0.62,
+    "debt_to_income_ratio": 0.7,
+    "estimated": true
+  },
+  {
+    "plate": 73,
+    "name": "Şırnak",
+    "nuts2": "TRC3",
+    "population": 570948,
+    "age_mean": 22.9,
+    "age_std": 9.0,
+    "youth_share": 0.48,
+    "female_pct": 0.495,
+    "income_mult": 0.52,
+    "income_p20": 4700,
+    "income_p50": 8800,
+    "income_p80": 21800,
+    "unemployment_rate": 0.248,
+    "education_dist": {
+      "primary_or_less": 0.31,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.09
+    },
+    "children_mean": 4.4,
+    "home_ownership_dist": {
+      "owner": 0.63,
+      "renter": 0.2,
+      "with_family": 0.17
+    },
+    "sector_weights": {
+      "agriculture": 0.28,
+      "industry": 0.14,
+      "construction": 0.07,
+      "services": 0.51
+    },
+    "informal_employment_rate": 0.62,
+    "debt_to_income_ratio": 0.7,
+    "estimated": true
+  },
+  {
+    "plate": 74,
+    "name": "Bartın",
+    "nuts2": "TR81",
+    "population": 201736,
+    "age_mean": 40.0,
+    "age_std": 11.5,
+    "youth_share": 0.26,
+    "female_pct": 0.5,
+    "income_mult": 0.86,
+    "income_p20": 7700,
+    "income_p50": 14600,
+    "income_p80": 36100,
+    "unemployment_rate": 0.108,
+    "education_dist": {
+      "primary_or_less": 0.22,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.18
+    },
+    "children_mean": 1.7,
+    "home_ownership_dist": {
+      "owner": 0.65,
+      "renter": 0.24,
+      "with_family": 0.11
+    },
+    "sector_weights": {
+      "agriculture": 0.18,
+      "industry": 0.28,
+      "construction": 0.06,
+      "services": 0.48
+    },
+    "informal_employment_rate": 0.35,
+    "debt_to_income_ratio": 1.4,
+    "estimated": true
+  },
+  {
+    "plate": 75,
+    "name": "Ardahan",
+    "nuts2": "TRA2",
+    "population": 99111,
+    "age_mean": 28.0,
+    "age_std": 10.5,
+    "youth_share": 0.39,
+    "female_pct": 0.497,
+    "income_mult": 0.52,
+    "income_p20": 4700,
+    "income_p50": 8800,
+    "income_p80": 21800,
+    "unemployment_rate": 0.198,
+    "education_dist": {
+      "primary_or_less": 0.3,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.1
+    },
+    "children_mean": 3.2,
+    "home_ownership_dist": {
+      "owner": 0.72,
+      "renter": 0.14,
+      "with_family": 0.14
+    },
+    "sector_weights": {
+      "agriculture": 0.431,
+      "industry": 0.118,
+      "construction": 0.059,
+      "services": 0.392
+    },
+    "informal_employment_rate": 0.6,
+    "debt_to_income_ratio": 0.8,
+    "estimated": true
+  },
+  {
+    "plate": 76,
+    "name": "Iğdır",
+    "nuts2": "TRA2",
+    "population": 200067,
+    "age_mean": 27.5,
+    "age_std": 10.5,
+    "youth_share": 0.41,
+    "female_pct": 0.497,
+    "income_mult": 0.54,
+    "income_p20": 4900,
+    "income_p50": 9200,
+    "income_p80": 22700,
+    "unemployment_rate": 0.195,
+    "education_dist": {
+      "primary_or_less": 0.3,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.1
+    },
+    "children_mean": 3.0,
+    "home_ownership_dist": {
+      "owner": 0.72,
+      "renter": 0.14,
+      "with_family": 0.14
+    },
+    "sector_weights": {
+      "agriculture": 0.396,
+      "industry": 0.125,
+      "construction": 0.062,
+      "services": 0.417
+    },
+    "informal_employment_rate": 0.6,
+    "debt_to_income_ratio": 0.8,
+    "estimated": true
+  },
+  {
+    "plate": 77,
+    "name": "Yalova",
+    "nuts2": "TR42",
+    "population": 301397,
+    "age_mean": 36.5,
+    "age_std": 11.0,
+    "youth_share": 0.31,
+    "female_pct": 0.499,
+    "income_mult": 1.18,
+    "income_p20": 10600,
+    "income_p50": 20100,
+    "income_p80": 49600,
+    "unemployment_rate": 0.068,
+    "education_dist": {
+      "primary_or_less": 0.14,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.26
+    },
+    "children_mean": 1.6,
+    "home_ownership_dist": {
+      "owner": 0.53,
+      "renter": 0.36,
+      "with_family": 0.11
+    },
+    "sector_weights": {
+      "agriculture": 0.04,
+      "industry": 0.317,
+      "construction": 0.069,
+      "services": 0.574
+    },
+    "informal_employment_rate": 0.2,
+    "debt_to_income_ratio": 2.1,
+    "estimated": false
+  },
+  {
+    "plate": 78,
+    "name": "Karabük",
+    "nuts2": "TR81",
+    "population": 247849,
+    "age_mean": 39.5,
+    "age_std": 11.5,
+    "youth_share": 0.26,
+    "female_pct": 0.5,
+    "income_mult": 0.88,
+    "income_p20": 7900,
+    "income_p50": 15000,
+    "income_p80": 37000,
+    "unemployment_rate": 0.108,
+    "education_dist": {
+      "primary_or_less": 0.22,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.18
+    },
+    "children_mean": 1.7,
+    "home_ownership_dist": {
+      "owner": 0.65,
+      "renter": 0.24,
+      "with_family": 0.11
+    },
+    "sector_weights": {
+      "agriculture": 0.08,
+      "industry": 0.36,
+      "construction": 0.06,
+      "services": 0.5
+    },
+    "informal_employment_rate": 0.35,
+    "debt_to_income_ratio": 1.4,
+    "estimated": true
+  },
+  {
+    "plate": 79,
+    "name": "Kilis",
+    "nuts2": "TRC1",
+    "population": 151996,
+    "age_mean": 30.0,
+    "age_std": 11.5,
+    "youth_share": 0.4,
+    "female_pct": 0.498,
+    "income_mult": 0.82,
+    "income_p20": 7400,
+    "income_p50": 13900,
+    "income_p80": 34400,
+    "unemployment_rate": 0.118,
+    "education_dist": {
+      "primary_or_less": 0.22,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.18
+    },
+    "children_mean": 2.8,
+    "home_ownership_dist": {
+      "owner": 0.6,
+      "renter": 0.26,
+      "with_family": 0.14
+    },
+    "sector_weights": {
+      "agriculture": 0.24,
+      "industry": 0.2,
+      "construction": 0.07,
+      "services": 0.49
+    },
+    "informal_employment_rate": 0.4,
+    "debt_to_income_ratio": 1.3,
+    "estimated": true
+  },
+  {
+    "plate": 80,
+    "name": "Osmaniye",
+    "nuts2": "TR63",
+    "population": 561720,
+    "age_mean": 33.0,
+    "age_std": 11.5,
+    "youth_share": 0.36,
+    "female_pct": 0.498,
+    "income_mult": 0.82,
+    "income_p20": 7400,
+    "income_p50": 13900,
+    "income_p80": 34400,
+    "unemployment_rate": 0.138,
+    "education_dist": {
+      "primary_or_less": 0.23,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.17
+    },
+    "children_mean": 2.2,
+    "home_ownership_dist": {
+      "owner": 0.6,
+      "renter": 0.27,
+      "with_family": 0.13
+    },
+    "sector_weights": {
+      "agriculture": 0.24,
+      "industry": 0.22,
+      "construction": 0.07,
+      "services": 0.47
+    },
+    "informal_employment_rate": 0.42,
+    "debt_to_income_ratio": 1.3,
+    "estimated": true
+  },
+  {
+    "plate": 81,
+    "name": "Düzce",
+    "nuts2": "TR42",
+    "population": 414469,
+    "age_mean": 36.5,
+    "age_std": 11.0,
+    "youth_share": 0.31,
+    "female_pct": 0.499,
+    "income_mult": 1.06,
+    "income_p20": 9500,
+    "income_p50": 18000,
+    "income_p80": 44500,
+    "unemployment_rate": 0.068,
+    "education_dist": {
+      "primary_or_less": 0.14,
+      "middle_school": 0.22,
+      "high_school": 0.38,
+      "university": 0.26
+    },
+    "children_mean": 1.6,
+    "home_ownership_dist": {
+      "owner": 0.53,
+      "renter": 0.36,
+      "with_family": 0.11
+    },
+    "sector_weights": {
+      "agriculture": 0.119,
+      "industry": 0.337,
+      "construction": 0.069,
+      "services": 0.475
+    },
+    "informal_employment_rate": 0.22,
+    "debt_to_income_ratio": 2.1,
+    "estimated": false
+  }
+]

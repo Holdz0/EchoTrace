@@ -79,10 +79,20 @@ def _apply_operation(
     else:
         raise ValueError(f"Bilinmeyen operasyon: {operation}")
 
-    # Çalışma yasağı: can_work ve income da sıfırlanır
-    if target == "employed" and operation == "set" and not value:
-        agents.can_work[mask] = False
-        agents.income[mask] = 0.0
+    # İstihdam etkisi yan etkileri
+    if target == "employed" and operation == "set":
+        if not value:
+            # İşten çıkarılanlar: çalışma yasağı + gelir sıfır
+            agents.can_work[mask] = False
+            agents.income[mask] = 0.0
+        else:
+            # İşe alınanlar: geliri sıfır olanlar asgari ücrete çıkar
+            from .calibration import TUIK_2024
+            zero_income = mask & (agents.income <= 0)
+            if zero_income.any():
+                agents.income[zero_income] = TUIK_2024["min_wage_monthly"] * (
+                    0.9 + 0.4 * agents.income_percentile[zero_income]
+                )
 
     # Not: Şehir veya sektör değişiminde otomatik iş kaybı kodları kaldırıldı.
     # Çünkü LLM aynı yasada hem şehri değiştirip hem de yeni iş/maaş verebilir.

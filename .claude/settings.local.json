@@ -22,7 +22,13 @@
       "Bash(where uvicorn *)",
       "Bash(where py *)",
       "Bash(ls \"C:\\\\Users\\\\tahae\\\\AppData\\\\Local\\\\Programs\\\\\" 2>&1 && ls \"C:\\\\Users\\\\tahae\\\\AppData\\\\Local\\\\\" | grep -i python 2>&1)",
-      "Bash(\"C:/Users/tahae/Desktop/EchoTrace/backend/venv/Scripts/pip.exe\" list *)"
+      "Bash(\"C:/Users/tahae/Desktop/EchoTrace/backend/venv/Scripts/pip.exe\" list *)",
+      "Skill(anthropic-skills:pdf)",
+      "Skill(anthropic-skills:pdf:*)",
+      "Bash(python -c ' *)",
+      "Bash(pip install *)",
+      "Bash(python generate_provinces.py)",
+      "Bash(python -W ignore generate_provinces.py)"
     ]
   }
 }
