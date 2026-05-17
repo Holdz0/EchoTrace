@@ -97,9 +97,11 @@ async def parse_and_simulate(body: LawInput):
         if not isinstance(parsed, dict):
             return {"error": f"LLM beklenmedik çıktı: {type(parsed)}", "results": []}
 
-        effects  = parsed.get("effects", [])
-        macro    = parsed.get("macro", {}) or {}
-        dynamics = parsed.get("dynamics") or None
+        effects    = parsed.get("effects", [])
+        macro      = parsed.get("macro", {}) or {}
+        dynamics   = parsed.get("dynamics") or None
+        reasoning  = parsed.get("reasoning") or None
+        city_notes = parsed.get("city_notes") or None
 
         print("\n── LLM PARSE ──")
         print(json.dumps(parsed, ensure_ascii=False, indent=2))
@@ -126,7 +128,7 @@ async def parse_and_simulate(body: LawInput):
             "total_days":  len(output["results"]),
             "effect_log":  output.get("effect_log", []),
             "results":     output["results"],
-            "parsed_law":  {"effects": effects, "macro": macro, "dynamics": dynamics},
+            "parsed_law":  {"effects": effects, "macro": macro, "dynamics": dynamics, "reasoning": reasoning, "city_notes": city_notes},
         }
 
     except Exception as e:

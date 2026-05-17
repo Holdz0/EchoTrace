@@ -12,6 +12,8 @@ export interface LLMReport {
   macro: Record<string, unknown>;
   dynamics: Record<string, unknown> | null;
   effectLog: string[];
+  reasoning?: string;
+  cityNotes?: Record<string, string>;
 }
 
 // Backend DayResult (snake_case) → frontend DaySnapshot (camelCase)
@@ -158,7 +160,7 @@ export function useSimulation(initialScenario: ScenarioKey): UseSimulationReturn
         results: BackendDayResult[];
         effect_log?: string[];
         error?: string;
-        parsed_law?: { effects: object[]; macro: Record<string, unknown>; dynamics: Record<string, unknown> | null };
+        parsed_law?: { effects: object[]; macro: Record<string, unknown>; dynamics: Record<string, unknown> | null; reasoning?: string; city_notes?: Record<string, string> };
       }) => {
         if (resp.error) {
           console.error("❌ Backend hatası:", resp.error);
@@ -174,6 +176,8 @@ export function useSimulation(initialScenario: ScenarioKey): UseSimulationReturn
             macro: resp.parsed_law.macro ?? {},
             dynamics: resp.parsed_law.dynamics ?? null,
             effectLog: resp.effect_log ?? [],
+            reasoning: resp.parsed_law.reasoning ?? undefined,
+            cityNotes: resp.parsed_law.city_notes ?? undefined,
           });
         }
 

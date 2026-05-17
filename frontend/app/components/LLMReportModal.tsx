@@ -79,6 +79,14 @@ function EffectCard({ effect, log }: { effect: Record<string, unknown>; log?: st
       {!hasFilter && (
         <span style={{ fontSize: 11, color: "#6b7280" }}>Tüm ajanlar etkilendi</span>
       )}
+      {effect.reason && (
+        <div style={{
+          marginTop: 8, fontSize: 11, color: "#94a3b8", lineHeight: 1.5,
+          borderTop: "1px solid #1e3a5f22", paddingTop: 6,
+        }}>
+          ↳ {String(effect.reason)}
+        </div>
+      )}
     </div>
   );
 }
@@ -192,6 +200,22 @@ export default function LLMReportModal({ report, onClose }: Props) {
             </div>
           </section>
 
+          {/* YZ Genel Gerekçesi */}
+          {report.reasoning && (
+            <section style={{ marginBottom: 20 }}>
+              <div style={{ fontSize: 11, color: "#6b7280", marginBottom: 6, textTransform: "uppercase", letterSpacing: 1 }}>
+                YZ Yorum & Gerekçe
+              </div>
+              <div style={{
+                background: "#0a1628", borderRadius: 8, padding: "12px 14px",
+                fontSize: 13, color: "#cbd5e1", lineHeight: 1.6,
+                borderLeft: "3px solid #a78bfa",
+              }}>
+                {report.reasoning}
+              </div>
+            </section>
+          )}
+
           {/* Ajan Efektleri */}
           <section style={{ marginBottom: 20 }}>
             <div style={{ fontSize: 11, color: "#6b7280", marginBottom: 10, textTransform: "uppercase", letterSpacing: 1 }}>
@@ -247,7 +271,7 @@ export default function LLMReportModal({ report, onClose }: Props) {
               <CityRateTable
                 title="İş kaybı hızı (yüksekse o şehirde hızla işsizlik artar)"
                 rates={jobLoss}
-                isLow={false}
+                isLow={true}
               />
               <CityRateTable
                 title="Yeniden istihdam hızı (yüksekse o şehirde hızla iş bulunur)"

@@ -76,7 +76,10 @@ GENEL KURALLAR:
 - inflation_shock her zaman doldurulmalı. Etkisi yoksa 0.0 yaz.
 - Zincirleme etkisi yoksa dynamics bloğu ekleme.
 - Birden fazla effect olabilir. Filtresiz effect tüm ajanları etkiler.
-- Sadece JSON döndür, açıklama yazma.
+- Her effect için kısa bir "reason" alanı ekle: bu spesifik kararın gerekçesini 1 cümlede Türkçe açıkla.
+- En üst düzey "reasoning" alanı ekle: yasanın genel yorumunu ve zincirleme mantığını 1-2 cümlede Türkçe özetle.
+- En üst düzey "city_notes" alanı ekle: effects veya dynamics'te hedeflenen HER şehir için o şehirde ne olduğunu ve neden olduğunu 1 cümlede Türkçe yaz. Göç alan şehirleri de dahil et. Hedeflenmemiş şehirleri atlа.
+- Sadece JSON döndür, başka açıklama yazma.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 BAĞLAM BAZLI ZİNCİRLEME KILAVUZU
@@ -102,8 +105,19 @@ Tarımsal hibe / hayvancılık desteği:
 Çalışma yasağı / coğrafi kısıtlama:
   → Yasak bölgede job_loss_rate yüksek, reemploy_rate 0.0; komşu şehirlere migration 0.001-0.003
 
-Sosyal yardım / nakit transfer:
+Sosyal yardım / nakit transfer (bireysel, küçük ölçek — örn. "3 çocuklulara 5000 TL"):
   → inflation_shock küçük (0.01-0.03); hedef gruba savings.add veya income.add
+  → dynamics bloğu gerekmez
+
+Büyük ölçekli sektörel yatırım / devlet sübvansiyonu (örn. "çiftçilere 50M TL destek", "fabrikaya teşvik"):
+  → Bu politika sadece para aktarmaz; o sektörde iş yaratır ve işten çıkarmayı azaltır
+  → Hedef sektörün yoğun olduğu şehirlerde reemploy_rate artır: mevcut değere +0.001 ile +0.003 ekle
+  → Aynı şehirlerde job_loss_rate azalt: 0.0002-0.0004 yap (varsayılan 0.0005'ten düşük)
+  → inflation_shock: 0.01-0.03
+  → savings.add veya income.add YANINDA mutlaka dynamics bloğu üret (ikisi birlikte zorunlu)
+  → Tarım / hayvancılık sübvansiyonu → Şanlıurfa(62), Diyarbakır(20), Van(64), Mardin(46) öncelikli; Konya(41) ikincil
+  → Sanayi yatırımı → Kocaeli(40), Bursa(15), İstanbul(33)
+  → Turizm yatırımı → Antalya(6), İzmir(34)
 
 Eğitim kısıtlaması:
   → Etkilenen grupta income.multiply 0.85-0.95; eğitim şehirlerinde (Ankara:5, İzmir:34) reemploy_rate düşer
@@ -121,7 +135,10 @@ Sanayi/yatırım teşviği belirli şehirlerde:
 FORMAT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Effect: {"target":"<alan>","filter":{...},"operation":"set"|"multiply"|"add"|"subtract","value":<değer>}
+Effect: {"target":"<alan>","filter":{...},"operation":"set"|"multiply"|"add"|"subtract","value":<değer>,"reason":"<bu kararın gerekçesi — 1 cümle Türkçe>"}
+Reasoning (en üst düzey): "reasoning": "<yasanın genel yorumu ve zincirleme mantığı — 1-2 cümle Türkçe>"
+city_notes (en üst düzey, gerekirse): {"<şehir_kodu_str>": "<bu şehirde bu yasa nedeniyle ne oluyor ve neden — 1 cümle Türkçe>"}
+  ← Sadece effects veya dynamics içinde açıkça hedeflenen şehirler için yaz. Etkilenmeyen şehirleri atlа.
 Macro:  {"inflation_shock":<float>,"vat_food_rate":<float>}  ← her zaman doldur
 Dynamics (gerekirse): {
   "job_loss_rate_by_city": {"<şehir_kodu_str>": <float>},
@@ -140,10 +157,16 @@ Filtre örnekleri:
 Giriş: "Büyükbaş hayvancılık 50 milyon TL hibe ile destekleniyor"
 Çıkış:
 {
+  "reasoning": "Hayvancılık hibesi çalışan tarım ajanlarının gelirini artırırken işsiz tarım ajanlarını istihdama çekerek doğu illerinde refahı yükseltir; işe giriş hızı artırıldı.",
+  "city_notes": {
+    "62": "Şanlıurfa'daki hayvancılık ajanları gelir artışı ve nakit destek alıyor; işsiz olanlar istihdam kazandı ve işe giriş hızı artırıldı.",
+    "20": "Diyarbakır hayvancılık sektörü teşvikten yararlanıyor; işe giriş kolaylaşarak bölgesel işsizlik düşüyor.",
+    "64": "Van'da hayvancılık destekleniyor; tarım ajanları gelir artışı ve yeniden istihdam imkânı elde etti."
+  },
   "effects": [
-    {"target":"income","filter":{"economic_sector":{"eq":0},"employed":{"eq":true}},"operation":"multiply","value":1.18},
-    {"target":"savings","filter":{"economic_sector":{"eq":0}},"operation":"add","value":4000},
-    {"target":"employed","filter":{"economic_sector":{"eq":0},"employed":{"eq":false}},"operation":"set","value":true}
+    {"target":"income","filter":{"economic_sector":{"eq":0},"employed":{"eq":true}},"operation":"multiply","value":1.18,"reason":"Çalışan tarım ajanlarının geliri hibe nedeniyle artırılır."},
+    {"target":"savings","filter":{"economic_sector":{"eq":0}},"operation":"add","value":4000,"reason":"Tüm tarım ajanlarına doğrudan nakit destek yapılır."},
+    {"target":"employed","filter":{"economic_sector":{"eq":0},"employed":{"eq":false}},"operation":"set","value":true,"reason":"İşsiz tarım ajanları hibe kapsamında istihdama geçirilir."}
   ],
   "macro": {"inflation_shock":0.01},
   "dynamics": {
@@ -172,9 +195,10 @@ Giriş: "Asgari ücret 35.000 TL oldu"
 Giriş: "Asgari ücret 1.000.000 TL oldu"
 Çıkış:
 {
+  "reasoning": "1 milyon TL asgari ücret mevcut ücretlerin 40 katı olup hiperenflasyona ve kitlesel işten çıkarmalara neden olur; işverenler bu yükü karşılayamayacağı için formal sektörde çalışan işçi ve esnaf işsiz kalır.",
   "effects": [
-    {"target":"income","filter":{"income":{"lt":1000000}},"operation":"set","value":1000000},
-    {"target":"employed","filter":{"profession":[1,2],"informal_employment":{"eq":false}},"operation":"set","value":false}
+    {"target":"income","filter":{"income":{"lt":1000000}},"operation":"set","value":1000000,"reason":"Mevcut geliri asgari ücretin altında kalan herkese zorunlu taban maaş uygulanır."},
+    {"target":"employed","filter":{"profession":[1,2],"informal_employment":{"eq":false}},"operation":"set","value":false,"reason":"Resmi sektördeki işveren ve esnaf bu maaş yükünü karşılayamayacağı için işçilerini çıkarmak zorunda kalır."}
   ],
   "macro": {"inflation_shock":0.75},
   "dynamics": {
@@ -211,8 +235,15 @@ Giriş: "3'ten fazla çocuğu olan ailelere aylık 5.000 TL yardım yapıldı"
 Giriş: "İstanbul'da çalışmak yasak"
 Çıkış:
 {
+  "reasoning": "İstanbul'daki tüm çalışanlar işini kaybeder; işsizler yakın sanayi illerine (Bursa, Kocaeli, Ankara) göç ederek iş arar ve bu iller göç baskısıyla karşı karşıya kalır.",
+  "city_notes": {
+    "33": "Çalışma yasağı nedeniyle tüm aktif çalışanlar anında işini kaybetti; yeni iş bulma olanağı tamamen kapandı ve işsizler diğer illere göç etmek zorunda.",
+    "15": "İstanbul'dan kaçan işsizler Bursa'ya akın ediyor; işe giriş hızı artırıldı ancak ani nüfus artışı iş piyasasını zorluyor.",
+    "40": "Kocaeli sanayi kapasitesiyle İstanbul göçünü emmeye çalışıyor; işe giriş hızı artırıldı.",
+    "5": "Ankara kamu sektörü ağırlıklı yapısıyla İstanbul göçmenlerine iş olanağı sunuyor."
+  },
   "effects": [
-    {"target":"employed","filter":{"city":[33]},"operation":"set","value":false}
+    {"target":"employed","filter":{"city":[33]},"operation":"set","value":false,"reason":"İstanbul'da çalışma yasağı gereği tüm aktif istihdam anında sonlandırılır."}
   ],
   "macro": {"inflation_shock":0.0},
   "dynamics": {
@@ -233,6 +264,26 @@ Giriş: "Emeklilere %30 zam yapıldı, gıda KDV'si %5'e indirildi"
     {"target":"income","filter":{"profession":[3]},"operation":"multiply","value":1.3}
   ],
   "macro": {"inflation_shock":0.02,"vat_food_rate":0.05}
+}
+
+Giriş: "Büyükbaş hayvancılıkla uğraşanlar için 50 milyon TL devlet desteği"
+Çıkış:
+{
+  "reasoning": "Büyük ölçekli hayvancılık desteği doğu illerindeki tarım ajanlarına nakit transferi yaparken aynı zamanda bölgedeki işe giriş hızını artırıp iş kaybını azaltarak kalıcı istihdam etkisi yaratır.",
+  "city_notes": {
+    "62": "Şanlıurfa'daki hayvancılık ajanları doğrudan nakit destek alıyor; işe giriş hızı artırıldı ve iş kaybı oranı düşürüldü.",
+    "20": "Diyarbakır tarım sektörü işe giriş kolaylaşmasından yararlanıyor; hayvancılık teşviki bölge ekonomisini canlandırıyor.",
+    "64": "Van'daki hayvancılık ajanları nakit desteği alıyor; iş kaybı ve işe giriş dinamikleri iyileşti.",
+    "41": "Konya tarım havzası olarak destekten pay alıyor; iş kaybı oranı hafifçe düşürüldü."
+  },
+  "effects": [
+    {"target":"savings","filter":{"economic_sector":{"eq":0},"city":[62,20,64,46,48]},"operation":"add","value":50000000,"reason":"Hayvancılıkla uğraşan doğu ili ajanlarına doğrudan nakit devlet desteği aktarılır."}
+  ],
+  "macro": {"inflation_shock":0.015},
+  "dynamics": {
+    "job_loss_rate_by_city": {"62":0.0003,"20":0.0003,"64":0.0003,"46":0.0003,"41":0.0004},
+    "reemploy_rate_by_city": {"62":0.0028,"20":0.0029,"64":0.0027,"46":0.0027,"41":0.0045}
+  }
 }
 """
 
