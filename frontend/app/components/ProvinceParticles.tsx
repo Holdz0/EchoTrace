@@ -26,15 +26,12 @@ export default function ProvinceParticles({ stats, width = 340, height = 180, on
   const particlesRef = useRef<Particle[]>([]);
   const rafRef = useRef<number | null>(null);
 
+  // Particle positions/velocities only reset when the selected province changes
   useEffect(() => {
     const count = Math.min(600, stats.agentCount);
     const particles: Particle[] = [];
-
     for (let i = 0; i < count; i++) {
       const s = i * 31 + parseInt(stats.id) * 7;
-      const isWinner = seeded(s, 13) < stats.winnerPct;
-      const isLoser  = !isWinner && seeded(s, 17) < stats.loserPct;
-      const status   = isWinner ? "winner" : isLoser ? "loser" : "neutral";
       particles.push({
         x: seeded(s, 1) * width,
         y: seeded(s, 2) * height,
@@ -43,11 +40,21 @@ export default function ProvinceParticles({ stats, width = 340, height = 180, on
         age: seeded(s, 5) * Math.PI * 2,
         speed: 0.4 + seeded(s, 6) * 0.6,
         idx: i,
-        status,
+        status: "neutral",
       });
     }
     particlesRef.current = particles;
-  }, [stats, width, height]);
+  }, [stats.id, stats.agentCount, width, height]);
+
+  // Color statuses update every tick without resetting positions
+  useEffect(() => {
+    for (const p of particlesRef.current) {
+      const s = p.idx * 31 + parseInt(stats.id) * 7;
+      const isWinner = seeded(s, 13) < stats.winnerPct;
+      const isLoser  = !isWinner && seeded(s, 17) < stats.loserPct;
+      p.status = isWinner ? "winner" : isLoser ? "loser" : "neutral";
+    }
+  }, [stats.winnerPct, stats.loserPct, stats.id]);
 
   useEffect(() => {
     const canvas = canvasRef.current;

@@ -8,12 +8,14 @@ import CinematicTimeline from "./CinematicTimeline";
 import { useSimulation } from "../lib/useSimulation";
 import { type ScenarioKey } from "../lib/mockData";
 import { computeProvinceStats, computeProvinceStatsLive } from "../lib/provinceSimulation";
-import { getActiveAlerts, latLonToMapPct } from "../lib/alertSystem";
+import { getActiveAlerts, getDemoAlerts } from "../lib/alertSystem";
 import { openReportWindow } from "../lib/reportGenerator";
-import RadarPing from "./RadarPing";
 import AlertToast from "./AlertToast";
 import LawInput from "./LawInput";
 import LLMReportModal from "./LLMReportModal";
+import AIPolicyModal from "./AIPolicyModal";
+import DemoTerminal from "./DemoTerminal";
+import { computeDemoProvinceStats, DEMO_LOGS } from "../lib/demoScenario";
 
 const TurkeyMap  = dynamic(() => import("./TurkeyMap"),  { ssr: false });
 const SplitMap   = dynamic(() => import("./SplitMap"),   { ssr: false });
@@ -47,18 +49,56 @@ export default function Dashboard() {
 
   const [showLLMReport, setShowLLMReport] = useState(false);
 
+  // ── DEMO MODE ──
+  const [demoMode,      setDemoMode]      = useState(false);
+  const [demoCompleted, setDemoCompleted] = useState(false);
+  const [showAIModal,   setShowAIModal]   = useState(false);
+
+  const startDemo = useCallback(() => {
+    setDemoMode(true);
+    setDemoCompleted(false);
+    setShowAIModal(false);
+    setCurrentDay(1);
+    setSpeed(1);
+    setPlaying(true);
+    setSelectedProvince(null);
+  }, [setCurrentDay, setSpeed, setPlaying]);
+
+  const stopDemo = useCallback(() => {
+    setDemoMode(false);
+    setShowAIModal(false);
+    setPlaying(false);
+  }, [setPlaying]);
+
+  // Demo tamamlandığında AI modalını aç
+  useEffect(() => {
+    if (demoMode && currentDay >= 365) {
+      setPlaying(false);
+      setDemoCompleted(true);
+      setTimeout(() => setShowAIModal(true), 600);
+    }
+  }, [demoMode, currentDay, setPlaying]);
+
+  const demoLogs = useMemo(() =>
+    demoMode ? DEMO_LOGS.filter(l => l.day <= currentDay) : [],
+  [demoMode, currentDay]);
+
   const params = SCENARIO_PARAMS[scenario];
 
   const provinceStats = useMemo(() => {
+    if (demoMode) return computeDemoProvinceStats(currentDay);
     const current  = snapshots[Math.min(currentDay - 1, snapshots.length - 1)];
     const baseline = snapshots[0];
     if (mode === "live" && current?.cityUnemployment && baseline?.cityUnemployment) {
       return computeProvinceStatsLive(current, baseline);
     }
     return computeProvinceStats(currentDay, params);
-  }, [mode, currentDay, params, snapshots]);
+  }, [demoMode, mode, currentDay, params, snapshots]);
 
-  const activeAlerts  = useMemo(() => getActiveAlerts(currentDay, scenario), [currentDay, scenario]);
+  const activeAlerts  = useMemo(
+    () => demoMode ? getDemoAlerts(currentDay) : getActiveAlerts(currentDay, scenario),
+    [demoMode, currentDay, scenario],
+  );
 
   const beforeStats = useMemo(() => {
     const baseline = snapshots[0];
@@ -205,6 +245,22 @@ export default function Dashboard() {
           </span>
           <div style={{ width: 1, height: 24, background: "#1e3a5f" }} />
 
+          {/* Demo mode button */}
+          <button
+            onClick={demoMode ? stopDemo : startDemo}
+            style={{
+              padding: "5px 12px", borderRadius: 6, fontSize: 11, fontWeight: 700,
+              cursor: "pointer",
+              border: demoMode ? "1px solid #ef444466" : "1px solid #22c55e44",
+              background: demoMode
+                ? "linear-gradient(135deg,#2d0a0a,#5e1b1b)"
+                : "linear-gradient(135deg,#0a2d12,#1b5e2e)",
+              color: demoMode ? "#fca5a5" : "#4ade80",
+              boxShadow: demoMode ? "0 0 10px #ef444422" : "0 0 10px #22c55e22",
+              letterSpacing: 1,
+            }}
+          >{demoMode ? "⏹ DEMO DURDUR" : "▶ BÜYÜK DEMO"}</button>
+
           {/* Law input button */}
           <button
             onClick={() => setShowLawInput(true)}
@@ -236,7 +292,13 @@ export default function Dashboard() {
 
           {/* Report generator button */}
           <button
-            onClick={() => openReportWindow(scenario, currentDay, provinceStats)}
+            onClick={() => {
+              if (demoCompleted) {
+                openReportWindow(scenario, 365, computeDemoProvinceStats(365), true);
+              } else {
+                openReportWindow(scenario, currentDay, provinceStats, demoMode);
+              }
+            }}
             style={{
               padding: "5px 12px", borderRadius: 6, fontSize: 11, fontWeight: 600,
               cursor: "pointer", border: "1px solid #2563eb44",
@@ -268,20 +330,8 @@ export default function Dashboard() {
                 provinceStats={provinceStats}
                 selectedId={selectedProvince?.id ?? null}
                 onSelect={(id, name) => setSelectedProvince({ id, name })}
+                alerts={activeAlerts}
               />
-              {/* Radar pings for active alerts */}
-              {activeAlerts.map(alert => {
-                const pos = latLonToMapPct(alert.lat, alert.lon);
-                return (
-                  <RadarPing
-                    key={alert.id}
-                    x={pos.x}
-                    y={pos.y}
-                    severity={alert.severity}
-                    label={alert.provinceName}
-                  />
-                );
-              })}
               {/* Overlays */}
               <MapOverlays currentDay={currentDay} winners={winners} losers={losers} />
             </div>
@@ -374,6 +424,19 @@ export default function Dashboard() {
 
       {showLLMReport && llmReport && (
         <LLMReportModal report={llmReport} onClose={() => setShowLLMReport(false)} />
+      )}
+
+      {/* ══════════════ DEMO TERMİNAL ══════════════ */}
+      {demoMode && (
+        <DemoTerminal logs={demoLogs} currentDay={currentDay} />
+      )}
+
+      {/* ══════════════ AI POLİCY MODAL ══════════════ */}
+      {showAIModal && (
+        <AIPolicyModal
+          onClose={() => { setShowAIModal(false); stopDemo(); }}
+          onRevise={() => { setShowAIModal(false); stopDemo(); setShowLawInput(true); }}
+        />
       )}
 
       {/* ══════════════ CITY UNEMPLOYMENT (backend live data) ══════════════ */}

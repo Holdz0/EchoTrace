@@ -28,7 +28,8 @@
       "Bash(python -c ' *)",
       "Bash(pip install *)",
       "Bash(python generate_provinces.py)",
-      "Bash(python -W ignore generate_provinces.py)"
+      "Bash(python -W ignore generate_provinces.py)",
+      "Bash(node node_modules/typescript/bin/tsc --noEmit --skipLibCheck)"
     ]
   }
 }
