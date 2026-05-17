@@ -1,34 +1,29 @@
 import { PROVINCES } from "./turkeyData";
 import type { DaySnapshot } from "../types";
 
-// Province plate ID → backend city name (from cities.py)
-const PROVINCE_TO_CITY: Record<number, string> = {
-  34: "İstanbul",
-  6: "Ankara",  18: "Ankara",  40: "Ankara",  71: "Ankara",
-  35: "İzmir",  9: "İzmir",   20: "İzmir",   45: "İzmir",   48: "İzmir",  64: "İzmir",
-  16: "Bursa",  10: "Bursa",  11: "Bursa",   17: "Bursa",   54: "Bursa",  77: "Bursa",
-  7:  "Antalya", 15: "Antalya", 32: "Antalya",
-  42: "Konya",  50: "Konya",  51: "Konya",   68: "Konya",   70: "Konya",
-  1:  "Adana",  31: "Adana",  33: "Adana",   80: "Adana",
-  63: "Şanlıurfa", 21: "Şanlıurfa", 30: "Şanlıurfa", 47: "Şanlıurfa",
-  56: "Şanlıurfa", 65: "Şanlıurfa", 72: "Şanlıurfa", 73: "Şanlıurfa",
-  27: "Gaziantep", 2: "Gaziantep", 44: "Gaziantep", 46: "Gaziantep", 79: "Gaziantep",
-  41: "Kocaeli", 14: "Kocaeli", 22: "Kocaeli", 39: "Kocaeli", 59: "Kocaeli", 81: "Kocaeli",
-};
-
-// Yasadan önceki baz işsizlik oranları — cities.py'dan (TÜİK 2024)
-const CITY_BASE_UNEMPLOYMENT: Record<string, number> = {
-  "İstanbul":  0.085,
-  "Ankara":    0.070,
-  "İzmir":     0.090,
-  "Bursa":     0.080,
-  "Antalya":   0.095,
-  "Konya":     0.130,
-  "Adana":     0.145,
-  "Şanlıurfa": 0.220,
-  "Gaziantep": 0.110,
-  "Kocaeli":   0.065,
-  "Diğer":     0.105,
+// Yasadan önceki baz işsizlik oranları — provinces_calibration.json ile senkronize (TÜİK 2024)
+const PROVINCE_BASE_UNEMPLOYMENT: Record<string, number> = {
+  "Adana": 0.130, "Adıyaman": 0.155, "Afyonkarahisar": 0.102, "Ağrı": 0.200,
+  "Amasya": 0.112, "Ankara": 0.072, "Antalya": 0.098, "Artvin": 0.098,
+  "Aydın": 0.098, "Balıkesir": 0.092, "Bilecik": 0.082, "Bingöl": 0.168,
+  "Bitlis": 0.228, "Bolu": 0.068, "Burdur": 0.105, "Bursa": 0.080,
+  "Çanakkale": 0.092, "Çankırı": 0.105, "Çorum": 0.112, "Denizli": 0.098,
+  "Diyarbakır": 0.220, "Edirne": 0.095, "Elazığ": 0.138, "Erzincan": 0.148,
+  "Erzurum": 0.155, "Eskişehir": 0.085, "Gaziantep": 0.115, "Giresun": 0.098,
+  "Gümüşhane": 0.098, "Hakkari": 0.245, "Hatay": 0.135, "Isparta": 0.105,
+  "Mersin": 0.125, "İstanbul": 0.087, "İzmir": 0.091, "Kars": 0.192,
+  "Kastamonu": 0.105, "Kayseri": 0.108, "Kırklareli": 0.095, "Kırşehir": 0.118,
+  "Kocaeli": 0.065, "Konya": 0.108, "Kütahya": 0.102, "Malatya": 0.138,
+  "Manisa": 0.102, "Kahramanmaraş": 0.142, "Mardin": 0.228, "Muğla": 0.098,
+  "Muş": 0.232, "Nevşehir": 0.118, "Niğde": 0.118, "Ordu": 0.098,
+  "Rize": 0.098, "Sakarya": 0.068, "Samsun": 0.110, "Siirt": 0.242,
+  "Sinop": 0.105, "Sivas": 0.112, "Tekirdağ": 0.095, "Tokat": 0.112,
+  "Trabzon": 0.098, "Tunceli": 0.125, "Şanlıurfa": 0.225, "Uşak": 0.102,
+  "Van": 0.225, "Yozgat": 0.112, "Zonguldak": 0.108, "Aksaray": 0.118,
+  "Bayburt": 0.148, "Karaman": 0.110, "Kırıkkale": 0.118, "Batman": 0.240,
+  "Şırnak": 0.248, "Bartın": 0.108, "Ardahan": 0.198, "Iğdır": 0.195,
+  "Yalova": 0.068, "Karabük": 0.108, "Kilis": 0.118, "Osmaniye": 0.138,
+  "Düzce": 0.068,
 };
 const NATIONAL_BASE_UNEMPLOYMENT = 0.105;
 
@@ -40,11 +35,9 @@ export function computeProvinceStatsLive(
 
   return PROVINCES.map(p => {
     const pid      = parseInt(p.id);
-    const cityName = PROVINCE_TO_CITY[pid] ?? "Diğer";
+    const cityName = p.name;
 
-    // Baz: yasadan önceki bilinen şehir işsizliği (cities.py)
-    const baseUnemp = CITY_BASE_UNEMPLOYMENT[cityName] ?? NATIONAL_BASE_UNEMPLOYMENT;
-    // Eğer backend bu şehri raporlamadıysa baseline = 0 değişim (nötr)
+    const baseUnemp = PROVINCE_BASE_UNEMPLOYMENT[cityName] ?? NATIONAL_BASE_UNEMPLOYMENT;
     const currUnemp = currCity[cityName] !== undefined
       ? currCity[cityName]
       : baseUnemp;

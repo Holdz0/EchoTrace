@@ -5,6 +5,14 @@ from .agents import AgentPopulation, create_population
 from .metrics import compute_daily_metrics
 from .policy_engine import apply_effects
 from .calibration import TUIK_2024
+from .provinces import PROVINCE_BY_IDX, PROVINCE_COUNT
+
+# Precomputed per-province reemployment rate calibrated to equilibrium unemployment.
+# Formula: reemploy = job_loss_prob * (1 - u) / u  where job_loss_prob = 0.0005
+_PROVINCE_REEMPLOY = np.array([
+    0.0005 * (1.0 - PROVINCE_BY_IDX[i]["unemployment_rate"]) / PROVINCE_BY_IDX[i]["unemployment_rate"]
+    for i in range(PROVINCE_COUNT)
+])
 
 
 def run_simulation(
@@ -115,22 +123,7 @@ def _step(agents: AgentPopulation, price_level: float, vat_rate: float, rng: np.
     N = len(agents.age)
     job_loss_prob = np.full(N, 0.0005)
 
-    # Şehre özgü denge işsizlik oranlarına göre kalibre edilmiş yeniden istihdam oranları
-    # reemploy = job_loss * (1 - u) / u  →  denge unemployment = u
-    _CITY_REEMPLOY = np.array([
-        0.00538,  # 0 İstanbul  %8.5
-        0.00664,  # 1 Ankara    %7.0
-        0.00506,  # 2 İzmir     %9.0
-        0.00575,  # 3 Bursa     %8.0
-        0.00476,  # 4 Antalya   %9.5
-        0.00335,  # 5 Konya     %13.0
-        0.00295,  # 6 Adana     %14.5
-        0.00177,  # 7 Şanlıurfa %22.0
-        0.00405,  # 8 Gaziantep %11.0
-        0.00719,  # 9 Kocaeli   %6.5
-        0.00426,  # 10 Diğer    %10.5
-    ])
-    reemploy_base = _CITY_REEMPLOY[agents.city.astype(np.int32)]
+    reemploy_base = _PROVINCE_REEMPLOY[agents.city.astype(np.int32)]
 
     if dynamics:
         for city_str, rate in dynamics.get("job_loss_rate_by_city", {}).items():
@@ -166,23 +159,28 @@ def _step(agents: AgentPopulation, price_level: float, vat_rate: float, rng: np.
     _apply_dynamic_migration(agents, rng, broke_mask)
 
 def _apply_dynamic_migration(agents: AgentPopulation, rng: np.random.Generator, broke_mask: np.ndarray) -> None:
+    # Province indices = plate - 1:
+    #   İstanbul=33, İzmir=34, Kocaeli=40, Bursa=15, Konya=41, Şanlıurfa=62, Adana=0
     N = len(agents.city)
     mig_chance = rng.random(N)
-    can_migrate = broke_mask & (mig_chance < 0.002)  # günde %0.2 ihtimal
-    
+    can_migrate = broke_mask & (mig_chance < 0.002)
+
+    # Tarım sektörü → ucuz doğu/orta illere (Konya idx=41, Şanlıurfa idx=62)
     agri_mask = can_migrate & (agents.economic_sector == 0)
     if agri_mask.any():
-        agents.city[agri_mask] = rng.choice([5, 7], size=agri_mask.sum())
-    
+        agents.city[agri_mask] = rng.choice([41, 62], size=agri_mask.sum())
+
+    # Sanayi/hizmet → büyük sanayi merkezleri (İstanbul=33, Kocaeli=40, Bursa=15)
     ind_srv_mask = can_migrate & ((agents.economic_sector == 1) | (agents.economic_sector == 3))
     if ind_srv_mask.any():
-        agents.city[ind_srv_mask] = rng.choice([0, 9, 3], size=ind_srv_mask.sum())
+        agents.city[ind_srv_mask] = rng.choice([33, 40, 15], size=ind_srv_mask.sum())
 
-    poor_renters = (agents.city == 0) | (agents.city == 2)
+    # İstanbul/İzmir'deki düşük gelirli kiracılar → Şanlıurfa gibi düşük maliyetli ile
+    poor_renters = (agents.city == 33) | (agents.city == 34)
     poor_renters &= (agents.home_ownership == 1) & (agents.income_percentile < 0.2)
-    poor_renters &= (mig_chance < 0.001)  # günde %0.1 ihtimal
+    poor_renters &= (mig_chance < 0.001)
     if poor_renters.any():
-        agents.city[poor_renters] = 10
+        agents.city[poor_renters] = 62
 
     young_edu_agri = (agents.age < 30) & (agents.education_level >= 2) & (agents.economic_sector == 0)
     change_sector = young_edu_agri & (rng.random(N) < 0.005)

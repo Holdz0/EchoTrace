@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { LineChart, Line, ResponsiveContainer, Tooltip, YAxis } from "recharts";
 import type { ProvinceStats } from "../lib/provinceSimulation";
 import { scoreToColor } from "../lib/provinceSimulation";
 import ProvinceParticles from "./ProvinceParticles";
 import AgentTooltip from "./AgentTooltip";
+import { useCityAgents } from "../lib/useCityAgents";
+import type { BackendAgent } from "../lib/useCityAgents";
 
 interface Props {
   stats: ProvinceStats;
@@ -37,10 +39,51 @@ function MiniChart({ data, dataKey, color, label, formatter }: {
   );
 }
 
+function pct(arr: BackendAgent[], pred: (a: BackendAgent) => boolean) {
+  if (!arr.length) return 0;
+  return Math.round((arr.filter(pred).length / arr.length) * 100);
+}
+
+function DemoBar({ label, value, color }: { label: string; value: number; color: string }) {
+  return (
+    <div>
+      <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, color: "#6b7280", marginBottom: 2 }}>
+        <span>{label}</span><span style={{ color }}>{value}%</span>
+      </div>
+      <div style={{ height: 3, background: "#0d1b2e", borderRadius: 2 }}>
+        <div style={{ height: "100%", width: `${value}%`, background: color, borderRadius: 2, transition: "width 0.4s" }} />
+      </div>
+    </div>
+  );
+}
+
 export default function CityDashboard({ stats, history, onClose, onAgentCinematic }: Props) {
   const [tooltip, setTooltip] = useState<TooltipState | null>(null);
+  const { agents, loading, cityName } = useCityAgents(stats.id);
+
   const scoreColor = scoreToColor(stats.score);
   const scoreLabel = stats.score > 0.15 ? "Kazanıyor" : stats.score < -0.15 ? "Kaybediyor" : "Nötr";
+
+  // Demografik özet
+  const demo = useMemo(() => {
+    if (!agents.length) return null;
+    return {
+      female:     pct(agents, a => a.gender === "Kadın"),
+      university: pct(agents, a => a.education_level === "Üniversite"),
+      renter:     pct(agents, a => a.home_ownership === "Kiracı"),
+      informal:   pct(agents, a => a.informal_employment),
+      service:    pct(agents, a => a.economic_sector === "Hizmet"),
+      industry:   pct(agents, a => a.economic_sector === "Sanayi"),
+      avgIncome:  Math.round(agents.reduce((s, a) => s + a.income, 0) / agents.length),
+      avgDebt:    Math.round(agents.reduce((s, a) => s + a.debt, 0) / agents.length),
+    };
+  }, [agents]);
+
+  // Tıklanan partiküle karşılık gelen gerçek ajan
+  function agentForIdx(idx: number): BackendAgent | undefined {
+    if (!agents.length) return undefined;
+    return agents[idx % agents.length];
+  }
 
   return (
     <div style={{
@@ -54,12 +97,16 @@ export default function CityDashboard({ stats, history, onClose, onAgentCinemati
       }}>
         <div>
           <div style={{ fontSize: 16, fontWeight: 700, color: "#e2e8f0" }}>{stats.name}</div>
-          <div style={{ fontSize: 11, color: "#4b5563", marginTop: 1 }}>
+          <div style={{ fontSize: 11, color: "#4b5563", marginTop: 1, display: "flex", alignItems: "center", gap: 8 }}>
             <span style={{
               background: `${scoreColor}22`, color: scoreColor, padding: "1px 8px",
               borderRadius: 8, fontSize: 10, fontWeight: 700,
             }}>● {scoreLabel}</span>
-            &nbsp; Skor: {(stats.score * 100).toFixed(1)}
+            {cityName && (
+              <span style={{ fontSize: 9, color: loading ? "#f59e0b" : "#22c55e" }}>
+                {loading ? "⟳ yükleniyor…" : `● ${cityName} verisi`}
+              </span>
+            )}
           </div>
         </div>
         <button onClick={onClose} style={{
@@ -73,7 +120,7 @@ export default function CityDashboard({ stats, history, onClose, onAgentCinemati
         {/* Particle canvas */}
         <div>
           <div style={{ fontSize: 10, color: "#374151", marginBottom: 4 }}>
-            AJan Dağılımı — Tıkla → Profil
+            Ajan Dağılımı — Tıkla → Profil
           </div>
           <div style={{ position: "relative" }}>
             <ProvinceParticles
@@ -86,6 +133,7 @@ export default function CityDashboard({ stats, history, onClose, onAgentCinemati
               <AgentTooltip
                 agentIdx={tooltip.idx}
                 stats={stats}
+                agent={agentForIdx(tooltip.idx)}
                 x={tooltip.x}
                 y={tooltip.y}
                 onClose={() => setTooltip(null)}
@@ -105,7 +153,7 @@ export default function CityDashboard({ stats, history, onClose, onAgentCinemati
           ))}
         </div>
 
-        {/* Stats row */}
+        {/* Simülasyon metrikleri */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
           {[
             { label: "Kazanan %", value: `${(stats.winnerPct * 100).toFixed(0)}%`, color: "#22c55e" },
@@ -123,10 +171,45 @@ export default function CityDashboard({ stats, history, onClose, onAgentCinemati
           ))}
         </div>
 
+        {/* Demografik özet (backend verisi) */}
+        {demo && (
+          <div style={{ background: "#0a1628", borderRadius: 8, padding: "10px 12px", border: "1px solid #1e3a5f" }}>
+            <div style={{ fontSize: 10, color: "#374151", marginBottom: 8, letterSpacing: 1 }}>
+              DEMOGRAFİK YAPI — GERÇEK VERİ
+            </div>
+
+            {/* Ortalama gelir & borç */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 10 }}>
+              <div>
+                <div style={{ fontSize: 9, color: "#4b5563" }}>Ort. Gelir</div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: "#22c55e" }}>
+                  {demo.avgIncome.toLocaleString("tr")} ₺
+                </div>
+              </div>
+              <div>
+                <div style={{ fontSize: 9, color: "#4b5563" }}>Ort. Borç</div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: "#ef4444" }}>
+                  {demo.avgDebt.toLocaleString("tr")} ₺
+                </div>
+              </div>
+            </div>
+
+            {/* Barlar */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+              <DemoBar label="Kadın oranı"         value={demo.female}     color="#f472b6" />
+              <DemoBar label="Üniversite mezunu"   value={demo.university} color="#60a5fa" />
+              <DemoBar label="Kiracı"               value={demo.renter}     color="#f59e0b" />
+              <DemoBar label="Kayıt dışı çalışan"  value={demo.informal}   color="#fb7185" />
+              <DemoBar label="Hizmet sektörü"      value={demo.service}    color="#34d399" />
+              <DemoBar label="Sanayi sektörü"      value={demo.industry}   color="#818cf8" />
+            </div>
+          </div>
+        )}
+
         {/* Mini charts */}
         {history.length > 1 && (
           <div>
-            <div style={{ fontSize: 10, color: "#374151", marginBottom: 6 }}>TARİHSEL SEYIR</div>
+            <div style={{ fontSize: 10, color: "#374151", marginBottom: 6 }}>TARİHSEL SEYİR</div>
             <div style={{ display: "flex", gap: 8 }}>
               <MiniChart data={history} dataKey="unemployment" color="#f59e0b" label="İşsizlik(%)" formatter={v => `${(v*100).toFixed(1)}%`} />
               <MiniChart data={history} dataKey="consumption" color="#22c55e" label="Tüketim(K₺)" formatter={v => `${(v/1000).toFixed(1)}K`} />
